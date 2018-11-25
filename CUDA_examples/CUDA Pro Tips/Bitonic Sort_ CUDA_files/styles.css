@@ -1,0 +1,88 @@
+/*
+ * I stole the body style from the Professor's CS webpage... up to you guys to
+ * change it or keep it the same.
+ */
+
+body {
+	width: 80%;
+	font: 16px "Trebuchet MS",Verdana,Arial,Helvetica,"sans-serif";
+    background: beige;
+	margin-left: 10%;
+}
+	   
+a:visited {
+	color: blue;
+}
+
+div.nav {
+	margin-left: 0%;
+	width: 20%;
+	/*height:5000px;*/
+	float: left;
+	border-color: black;
+	border-right-width: 2px;
+	border-right-color: #000000;
+}
+
+.heading {
+	text-align: center;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+p.eq {
+	/* Use this for equations or code. */
+	font-family: Consolas,"Courier New";
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+}
+
+table {
+	border-width: 2px;
+	border-color: #000000;
+}
+
+code {
+	font-family: Consolas,"Courier New";
+	font-style: italic;
+}
+
+/* n for "narrow" */
+b.n {
+	font-size: 16px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+.n {
+	padding-top: 0px;
+	margin-top: 0px;
+	margin-bottom: 40px;
+}
+
+/* "no margin" */
+.nm {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.cit {
+	font-style: italic;
+	color: #222222;
+}
+
+table.navbar  {font: 16px Trebuchet MS, Verdana, Arial, sans-serif; 
+border-collapse:collapse; cellspacing:0px; margin-bottom: 10px; width: 100% }
+table.navbar td { border: 1px solid grey; text-align: center; padding: 4px; 
+width: 16%; background: lightgrey;}
+table.navbar td.active { background: steelblue; color:white;}
+table.subnavbar td.active { background: brown; color:white;}
+table.subnavbar { font: 14px Trebuchet MS, Verdana, Arial, sans-serif; 
+border-collapse:collapse; cellspacing:0px; margin-bottom: 10px; width: 40%}
+table.subnavbar td { border: 1px solid grey; text-align: center; padding: 4px; 
+background: tan; }
+a.sub, a.sub:visited { color: brown; }
+
+

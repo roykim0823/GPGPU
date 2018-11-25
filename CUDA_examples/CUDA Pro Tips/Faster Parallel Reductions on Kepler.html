@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/ -->
+<html class="js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-nimbussanscondensed-n4-active wf-nimbussanscondensed-n7-active wf-active gr__devblogs_nvidia_com" lang="en-US" prefix="og: http://ogp.me/ns#"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./Faster Parallel Reductions on Kepler_files/saved_resource"></script><script src="./Faster Parallel Reductions on Kepler_files/955066571291140" async=""></script><script async="" src="./Faster Parallel Reductions on Kepler_files/fbevents.js.download"></script><script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/a63018bcb3"></script><script src="./Faster Parallel Reductions on Kepler_files/nr-1059.min.js.download"></script><script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/300lo.json"></script><script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/_ate.track.config_resp"></script>
+	<script id="twitter-wjs" src="./Faster Parallel Reductions on Kepler_files/widgets.js.download"></script><script async="" src="./Faster Parallel Reductions on Kepler_files/analytics.js.download"></script><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1059.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://devblogs.nvidia.com/parallelforall/xmlrpc.php">
+	<style>
+.stb-container-css {margin: 10px 10px 10px 10px;}.stb-box {}.stb-caption-box {}.stb-body-box {}
+/* Class Dependent Parameters */
+.stb-border.stb-alert-container {border: 1px none #FF4F4A;}.stb-side.stb-alert-container {background: #1D1A1A;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1D1A1A', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);}.stb-side-none.stb-alert-container {background: #fDCBC9;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fDCBC9', endColorstr='#FB7D78',GradientType=0 );background: -moz-linear-gradient(top,  #fDCBC9 30%, #FB7D78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#fDCBC9), color-stop(90%,#FB7D78));background: -webkit-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -o-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -ms-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: linear-gradient(#fDCBC9 30%, #FB7D78 90%);}.stb-alert_box {background: #fDCBC9;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fDCBC9', endColorstr='#FB7D78',GradientType=0 );background: -moz-linear-gradient(top,  #fDCBC9 30%, #FB7D78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#fDCBC9), color-stop(90%,#FB7D78));background: -webkit-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -o-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -ms-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: linear-gradient(#fDCBC9 30%, #FB7D78 90%);color: #000000;}.stb-alert-caption_box {background: #1D1A1A;background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);color: #FFFFFF;}.stb-alert-body_box {background: #fDCBC9;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fDCBC9', endColorstr='#FB7D78',GradientType=0 );background: -moz-linear-gradient(top,  #fDCBC9 30%, #FB7D78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#fDCBC9), color-stop(90%,#FB7D78));background: -webkit-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -o-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: -ms-linear-gradient(top,  #fDCBC9 30%,#FB7D78 90%);background: linear-gradient(#fDCBC9 30%, #FB7D78 90%);color: #000000;}.stb-border.stb-black-container {border: 1px none #6E6E6E;}.stb-side.stb-black-container {background: #4B4747;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4B4747', endColorstr='#141414',GradientType=0 );background: -moz-linear-gradient(top,  #4B4747 30%, #141414 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#4B4747), color-stop(90%,#141414));background: -webkit-linear-gradient(top,  #4B4747 30%,#141414 90%);background: -o-linear-gradient(top,  #4B4747 30%,#141414 90%);background: -ms-linear-gradient(top,  #4B4747 30%,#141414 90%);background: linear-gradient(#4B4747 30%, #141414 90%);}.stb-side-none.stb-black-container {background: #3B3B3B;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3B3B3B', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #3B3B3B 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#3B3B3B), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -o-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -ms-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: linear-gradient(#3B3B3B 30%, #000000 90%);}.stb-black_box {background: #3B3B3B;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3B3B3B', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #3B3B3B 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#3B3B3B), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -o-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -ms-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: linear-gradient(#3B3B3B 30%, #000000 90%);color: #FFFFFF;}.stb-black-caption_box {background: #4B4747;background: -moz-linear-gradient(top,  #4B4747 30%, #141414 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#4B4747), color-stop(90%,#141414));background: -webkit-linear-gradient(top,  #4B4747 30%,#141414 90%);background: -o-linear-gradient(top,  #4B4747 30%,#141414 90%);background: -ms-linear-gradient(top,  #4B4747 30%,#141414 90%);background: linear-gradient(#4B4747 30%, #141414 90%);color: #FFFFFF;}.stb-black-body_box {background: #3B3B3B;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3B3B3B', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #3B3B3B 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#3B3B3B), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -o-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: -ms-linear-gradient(top,  #3B3B3B 30%,#000000 90%);background: linear-gradient(#3B3B3B 30%, #000000 90%);color: #FFFFFF;}.stb-border.stb-custom-container {border: 1px none #F844EE;}.stb-side.stb-custom-container {background: #1D1A1A;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1D1A1A', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);}.stb-side-none.stb-custom-container {background: #F7CDF5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7CDF5', endColorstr='#F77DF1',GradientType=0 );background: -moz-linear-gradient(top,  #F7CDF5 30%, #F77DF1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F7CDF5), color-stop(90%,#F77DF1));background: -webkit-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -o-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -ms-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: linear-gradient(#F7CDF5 30%, #F77DF1 90%);}.stb-custom_box {background: #F7CDF5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7CDF5', endColorstr='#F77DF1',GradientType=0 );background: -moz-linear-gradient(top,  #F7CDF5 30%, #F77DF1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F7CDF5), color-stop(90%,#F77DF1));background: -webkit-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -o-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -ms-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: linear-gradient(#F7CDF5 30%, #F77DF1 90%);color: #000000;}.stb-custom-caption_box {background: #1D1A1A;background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);color: #FFFFFF;}.stb-custom-body_box {background: #F7CDF5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7CDF5', endColorstr='#F77DF1',GradientType=0 );background: -moz-linear-gradient(top,  #F7CDF5 30%, #F77DF1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F7CDF5), color-stop(90%,#F77DF1));background: -webkit-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -o-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: -ms-linear-gradient(top,  #F7CDF5 30%,#F77DF1 90%);background: linear-gradient(#F7CDF5 30%, #F77DF1 90%);color: #000000;}.stb-border.stb-download-container {border: 1px none #65ADFE;}.stb-side.stb-download-container {background: #1D1A1A;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1D1A1A', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);}.stb-side-none.stb-download-container {background: #78C0F7;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#78C0F7', endColorstr='#2E7CB9',GradientType=0 );background: -moz-linear-gradient(top,  #78C0F7 30%, #2E7CB9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#78C0F7), color-stop(90%,#2E7CB9));background: -webkit-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -o-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -ms-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: linear-gradient(#78C0F7 30%, #2E7CB9 90%);}.stb-download_box {background: #78C0F7;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#78C0F7', endColorstr='#2E7CB9',GradientType=0 );background: -moz-linear-gradient(top,  #78C0F7 30%, #2E7CB9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#78C0F7), color-stop(90%,#2E7CB9));background: -webkit-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -o-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -ms-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: linear-gradient(#78C0F7 30%, #2E7CB9 90%);color: #000000;}.stb-download-caption_box {background: #1D1A1A;background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);color: #FFFFFF;}.stb-download-body_box {background: #78C0F7;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#78C0F7', endColorstr='#2E7CB9',GradientType=0 );background: -moz-linear-gradient(top,  #78C0F7 30%, #2E7CB9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#78C0F7), color-stop(90%,#2E7CB9));background: -webkit-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -o-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: -ms-linear-gradient(top,  #78C0F7 30%,#2E7CB9 90%);background: linear-gradient(#78C0F7 30%, #2E7CB9 90%);color: #000000;}.stb-border.stb-get-started-container {border: 1px none #76b900;}.stb-side.stb-get-started-container {background: #FE9A05;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FE9A05', endColorstr='#FE9A05',GradientType=0 );background: -moz-linear-gradient(top,  #FE9A05 30%, #FE9A05 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FE9A05), color-stop(90%,#FE9A05));background: -webkit-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: -o-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: -ms-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: linear-gradient(#FE9A05 30%, #FE9A05 90%);}.stb-side-none.stb-get-started-container {background: #76b900;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76b900', endColorstr='#76b900',GradientType=0 );background: -moz-linear-gradient(top,  #76b900 30%, #76b900 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#76b900), color-stop(90%,#76b900));background: -webkit-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -o-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -ms-linear-gradient(top,  #76b900 30%,#76b900 90%);background: linear-gradient(#76b900 30%, #76b900 90%);}.stb-get-started_box {background: #76b900;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76b900', endColorstr='#76b900',GradientType=0 );background: -moz-linear-gradient(top,  #76b900 30%, #76b900 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#76b900), color-stop(90%,#76b900));background: -webkit-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -o-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -ms-linear-gradient(top,  #76b900 30%,#76b900 90%);background: linear-gradient(#76b900 30%, #76b900 90%);color: #000000;}.stb-get-started-caption_box {background: #FE9A05;background: -moz-linear-gradient(top,  #FE9A05 30%, #FE9A05 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FE9A05), color-stop(90%,#FE9A05));background: -webkit-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: -o-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: -ms-linear-gradient(top,  #FE9A05 30%,#FE9A05 90%);background: linear-gradient(#FE9A05 30%, #FE9A05 90%);color: #FFFFFF;}.stb-get-started-body_box {background: #76b900;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76b900', endColorstr='#76b900',GradientType=0 );background: -moz-linear-gradient(top,  #76b900 30%, #76b900 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#76b900), color-stop(90%,#76b900));background: -webkit-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -o-linear-gradient(top,  #76b900 30%,#76b900 90%);background: -ms-linear-gradient(top,  #76b900 30%,#76b900 90%);background: linear-gradient(#76b900 30%, #76b900 90%);color: #000000;}.stb-border.stb-grey-container {border: 1px none #BBBBBB;}.stb-side.stb-grey-container {background: #B5B5B5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#B5B5B5', endColorstr='#6E6E6E',GradientType=0 );background: -moz-linear-gradient(top,  #B5B5B5 30%, #6E6E6E 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#B5B5B5), color-stop(90%,#6E6E6E));background: -webkit-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: -o-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: -ms-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: linear-gradient(#B5B5B5 30%, #6E6E6E 90%);}.stb-side-none.stb-grey-container {background: #E3E3E3;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3E3E3', endColorstr='#ABABAB',GradientType=0 );background: -moz-linear-gradient(top,  #E3E3E3 30%, #ABABAB 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E3E3E3), color-stop(90%,#ABABAB));background: -webkit-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -o-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -ms-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: linear-gradient(#E3E3E3 30%, #ABABAB 90%);}.stb-grey_box {background: #E3E3E3;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3E3E3', endColorstr='#ABABAB',GradientType=0 );background: -moz-linear-gradient(top,  #E3E3E3 30%, #ABABAB 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E3E3E3), color-stop(90%,#ABABAB));background: -webkit-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -o-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -ms-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: linear-gradient(#E3E3E3 30%, #ABABAB 90%);color: #000000;}.stb-grey-caption_box {background: #B5B5B5;background: -moz-linear-gradient(top,  #B5B5B5 30%, #6E6E6E 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#B5B5B5), color-stop(90%,#6E6E6E));background: -webkit-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: -o-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: -ms-linear-gradient(top,  #B5B5B5 30%,#6E6E6E 90%);background: linear-gradient(#B5B5B5 30%, #6E6E6E 90%);color: #FFFFFF;}.stb-grey-body_box {background: #E3E3E3;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3E3E3', endColorstr='#ABABAB',GradientType=0 );background: -moz-linear-gradient(top,  #E3E3E3 30%, #ABABAB 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E3E3E3), color-stop(90%,#ABABAB));background: -webkit-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -o-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: -ms-linear-gradient(top,  #E3E3E3 30%,#ABABAB 90%);background: linear-gradient(#E3E3E3 30%, #ABABAB 90%);color: #000000;}.stb-border.stb-info-container {border: 1px none #76b900;}.stb-side.stb-info-container {background: #ffffff;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );background: -moz-linear-gradient(top,  #ffffff 30%, #ffffff 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#ffffff), color-stop(90%,#ffffff));background: -webkit-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -o-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -ms-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: linear-gradient(#ffffff 30%, #ffffff 90%);}.stb-side-none.stb-info-container {background: #ffffff;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );background: -moz-linear-gradient(top,  #ffffff 30%, #ffffff 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#ffffff), color-stop(90%,#ffffff));background: -webkit-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -o-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -ms-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: linear-gradient(#ffffff 30%, #ffffff 90%);}.stb-info_box {background: #ffffff;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );background: -moz-linear-gradient(top,  #ffffff 30%, #ffffff 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#ffffff), color-stop(90%,#ffffff));background: -webkit-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -o-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -ms-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: linear-gradient(#ffffff 30%, #ffffff 90%);color: #000000;}.stb-info-caption_box {background: #ffffff;background: -moz-linear-gradient(top,  #ffffff 30%, #ffffff 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#ffffff), color-stop(90%,#ffffff));background: -webkit-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -o-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -ms-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: linear-gradient(#ffffff 30%, #ffffff 90%);color: #000000;}.stb-info-body_box {background: #ffffff;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );background: -moz-linear-gradient(top,  #ffffff 30%, #ffffff 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#ffffff), color-stop(90%,#ffffff));background: -webkit-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -o-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: -ms-linear-gradient(top,  #ffffff 30%,#ffffff 90%);background: linear-gradient(#ffffff 30%, #ffffff 90%);color: #000000;}.stb-border.stb-warning-container {border: 1px none #FE9A05;}.stb-side.stb-warning-container {background: #1D1A1A;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1D1A1A', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);}.stb-side-none.stb-warning-container {background: #F8FC91;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F8FC91', endColorstr='#F0D208',GradientType=0 );background: -moz-linear-gradient(top,  #F8FC91 30%, #F0D208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F8FC91), color-stop(90%,#F0D208));background: -webkit-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -o-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -ms-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: linear-gradient(#F8FC91 30%, #F0D208 90%);}.stb-warning_box {background: #F8FC91;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F8FC91', endColorstr='#F0D208',GradientType=0 );background: -moz-linear-gradient(top,  #F8FC91 30%, #F0D208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F8FC91), color-stop(90%,#F0D208));background: -webkit-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -o-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -ms-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: linear-gradient(#F8FC91 30%, #F0D208 90%);color: #000000;}.stb-warning-caption_box {background: #1D1A1A;background: -moz-linear-gradient(top,  #1D1A1A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#1D1A1A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -o-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: -ms-linear-gradient(top,  #1D1A1A 30%,#504848 90%);background: linear-gradient(#1D1A1A 30%, #504848 90%);color: #FFFFFF;}.stb-warning-body_box {background: #F8FC91;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F8FC91', endColorstr='#F0D208',GradientType=0 );background: -moz-linear-gradient(top,  #F8FC91 30%, #F0D208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#F8FC91), color-stop(90%,#F0D208));background: -webkit-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -o-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: -ms-linear-gradient(top,  #F8FC91 30%,#F0D208 90%);background: linear-gradient(#F8FC91 30%, #F0D208 90%);color: #000000;}</style>
+
+<!-- This site is optimized with the Yoast SEO plugin v5.5.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Faster Parallel Reductions on Kepler</title>
+<meta name="description" content="Parallel reduction is a fundamental building block in parallel programming. This article shows how to get the fastest reduction throughput in CUDA C on the NVIDIA Kepler GPU architecture.">
+<link rel="canonical" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Faster Parallel Reductions on Kepler">
+<meta property="og:description" content="Parallel reduction is a fundamental building block in parallel programming. This article shows how to get the fastest reduction throughput in CUDA C on the NVIDIA Kepler GPU architecture.">
+<meta property="og:url" content="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/">
+<meta property="og:site_name" content="Parallel Forall">
+<meta property="article:publisher" content="https://www.facebook.com/NVIDIA/">
+<meta property="article:tag" content="Algorithms">
+<meta property="article:tag" content="CUDA">
+<meta property="article:tag" content="Kepler">
+<meta property="article:tag" content="Parallel Programming">
+<meta property="article:section" content="Features">
+<meta property="article:published_time" content="2014-02-13T20:30:44-07:00">
+<meta property="article:modified_time" content="2016-06-22T17:39:46-07:00">
+<meta property="og:updated_time" content="2016-06-22T17:39:46-07:00">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/02/shfl_down.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/02/shfl_down.png">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduce-624x274.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduce-624x274.png">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduction-perf1-624x373.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduction-perf1-624x373.png">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduction-perf2-624x373.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/reduction-perf2-624x373.png">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/shfl_sass-e1392348023371-300x142.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/shfl_sass-e1392348023371-300x142.png">
+<meta property="og:image" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/shfl_sass_interleaved-e1392348072780-300x116.png">
+<meta property="og:image:secure_url" content="https://devblogs.nvidia.com/wp-content/uploads/2014/01/shfl_sass_interleaved-e1392348072780-300x116.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Parallel reduction is a fundamental building block in parallel programming. This article shows how to get the fastest reduction throughput in CUDA C on the NVIDIA Kepler GPU architecture.">
+<meta name="twitter:title" content="Faster Parallel Reductions on Kepler">
+<meta name="twitter:site" content="@gpucomputing">
+<meta name="twitter:image" content="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/Kepler_reductions_thumb.png">
+<meta name="twitter:creator" content="@gpucomputing">
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/devblogs.nvidia.com\/parallelforall\/","name":"NVIDIA Parallel Forall","alternateName":"NVIDIA Accelerated Computing Developer Blog","potentialAction":{"@type":"SearchAction","target":"https:\/\/devblogs.nvidia.com\/parallelforall\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/devblogs.nvidia.com\/parallelforall\/faster-parallel-reductions-kepler\/","sameAs":["https:\/\/www.facebook.com\/NVIDIA\/","https:\/\/www.linkedin.com\/company-\u2026","https:\/\/www.youtube.com\/user\/nvidia","https:\/\/twitter.com\/gpucomputing"],"@id":"#organization","name":"NVIDIA Corporation","logo":"https:\/\/devblogs.nvidia.com\/parallelforall\/wp-content\/uploads\/2017\/01\/NVLogo_2D.png"}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://devblogs.nvidia.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://secure.gravatar.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Parallel Forall » Feed" href="https://devblogs.nvidia.com/parallelforall/feed/">
+<link rel="alternate" type="application/rss+xml" title="Parallel Forall » Comments Feed" href="https://devblogs.nvidia.com/parallelforall/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Parallel Forall » Faster Parallel Reductions on Kepler Comments Feed" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/feed/">
+<!-- This site uses the Google Analytics by MonsterInsights plugin v6.2.4 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+<script type="text/javascript" data-cfasync="false">
+		var disableStr = 'ga-disable-UA-1273456-64';
+
+	/* Function to detect opted out users */
+	function __gaTrackerIsOptedOut() {
+		return document.cookie.indexOf(disableStr + '=true') > -1;
+	}
+
+	/* Disable tracking if the opt-out cookie exists. */
+	if ( __gaTrackerIsOptedOut() ) {
+		window[disableStr] = true;
+	}
+
+	/* Opt-out function */
+	function __gaTrackerOptout() {
+	  document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+	  window[disableStr] = true;
+	}
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-1273456-64', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+</script>
+<!-- / Google Analytics by MonsterInsights -->
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/devblogs.nvidia.com\/parallelforall\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.2"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b!==c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Faster Parallel Reductions on Kepler_files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="styles-css" href="./Faster Parallel Reductions on Kepler_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="stbCoreCSS-css" href="./Faster Parallel Reductions on Kepler_files/stb-core.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Faster Parallel Reductions on Kepler_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","is_debug_mode":"false","download_extensions":"doc,exe,js,pdf,ppt,tgz,zip,xls,gz,targz","inbound_paths":"","home_url":"https:\/\/devblogs.nvidia.com\/parallelforall","track_download_as":"event","internal_label":"int","hash_tracking":"false"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/frontend.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/jquery.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/jquery-migrate.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/modernizr-2.5.3.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/jquery.placeholder.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/script.js.download"></script>
+<link rel="https://api.w.org/" href="https://devblogs.nvidia.com/parallelforall/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://devblogs.nvidia.com/parallelforall/xmlrpc.php?rsd">
+
+<link rel="shortlink" href="https://wp.me/p3Xf58-F9">
+<link rel="alternate" type="application/json+oembed" href="https://devblogs.nvidia.com/parallelforall/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdevblogs.nvidia.com%2Fparallelforall%2Ffaster-parallel-reductions-kepler%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://devblogs.nvidia.com/parallelforall/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdevblogs.nvidia.com%2Fparallelforall%2Ffaster-parallel-reductions-kepler%2F&amp;format=xml">
+<script type="text/javascript">
+	window._zem_rp_post_id = '2551';
+	window._zem_rp_thumbnails = false;
+	window._zem_rp_post_title = 'Faster+Parallel+Reductions+on+Kepler';
+	window._zem_rp_post_tags = ['cuda', 'kepler', 'parallel+programming', 'algorithms', 'features', 'pro', 'memori', 'aa', 'tip', 'data', 'gpu', 'atom', 'architectur', 'cuda', 'hardwar', 'write', 'kepler', 'warp', 'code', 'thread'];
+	window._zem_rp_static_base_url = 'https://content.zemanta.com/static/';
+	window._zem_rp_wp_ajax_url = 'https://devblogs.nvidia.com/parallelforall/wp-admin/admin-ajax.php';
+	window._zem_rp_plugin_version = '1.14';
+	window._zem_rp_num_rel_posts = '4';
+</script>
+<link rel="stylesheet" href="./Faster Parallel Reductions on Kepler_files/modern.css">
+<style type="text/css">
+.related_post_title {
+}
+ul.related_post {
+}
+ul.related_post li {
+}
+ul.related_post li a {
+}
+ul.related_post li img {
+}</style>
+<script src="./Faster Parallel Reductions on Kepler_files/satelliteLib-7ba51e58dc61bcb0e9311aadd02a0108ab24cc6c.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/satellite-57adc78464746d3e8a000ed9.js.download"></script>
+	<!--wp code prettify-->
+<link rel="dns-prefetch" href="https://v0.wordpress.com/">
+<link rel="dns-prefetch" href="https://widgets.wp.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://0.gravatar.com/">
+<link rel="dns-prefetch" href="https://1.gravatar.com/">
+<link rel="dns-prefetch" href="https://2.gravatar.com/">
+<style type="text/css">img#wpstats{display:none}</style>			<link rel="stylesheet" type="text/css" id="wp-custom-css" href="./Faster Parallel Reductions on Kepler_files/saved_resource(1)">
+		<script type="text/javascript" async="" src="./Faster Parallel Reductions on Kepler_files/embed.js.download"></script><link id="prettify_css" type="text/css" rel="stylesheet" href="./Faster Parallel Reductions on Kepler_files/prettify.css"><style type="text/css">.tk-nimbus-sans-condensed{font-family:"nimbus-sans-condensed","Helvetica",sans-serif;}</style><style type="text/css">@font-face{font-family:nimbus-sans-condensed;src:url(https://use.typekit.net/af/9a4ab6/000000000000000000010124/27/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/9a4ab6/000000000000000000010124/27/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/9a4ab6/000000000000000000010124/27/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:nimbus-sans-condensed;src:url(https://use.typekit.net/af/c90ed8/000000000000000000010125/27/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/c90ed8/000000000000000000010125/27/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/c90ed8/000000000000000000010125/27/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}</style><style id="prettify_custom" type="text/css">pre.prettyprint { max-height: 500px; white-space: pre; word-wrap: normal; overflow: auto; background-color: #f8f8f8;border-radius: 3px; } pre.prettyprint[title]:before { float: right; border: 1px solid #ccc; border-radius: 3px; background: #ddd; padding: 10px; content: attr(title);  font: 13px "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, sans-serif; }</style><script async="" type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/count.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/satellite-594a6ce764746d506700c2a3.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/satellite-5991afef64746d6deb010d48.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/satellite-5991b02f64746d63240018f2.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/s-code-contents-72887b31a9638f8b3cff7981a426c38c354f6412.js.download"></script><script src="./Faster Parallel Reductions on Kepler_files/count-data.js.download"></script><style type="text/css">.at-icon{fill:#fff;border:0}.at-icon-wrapper{display:inline-block;overflow:hidden}a .at-icon-wrapper{cursor:pointer}.at-rounded,.at-rounded-element .at-icon-wrapper{border-radius:12%}.at-circular,.at-circular-element .at-icon-wrapper{border-radius:50%}.addthis_32x32_style .at-icon{width:2pc;height:2pc}.addthis_24x24_style .at-icon{width:24px;height:24px}.addthis_20x20_style .at-icon{width:20px;height:20px}.addthis_16x16_style .at-icon{width:1pc;height:1pc}#at16lb{display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:1001;background-color:#000;opacity:.001}#at_complete,#at_error,#at_share,#at_success{position:static!important}.at15dn{display:none}#at15s,#at16p,#at16p form input,#at16p label,#at16p textarea,#at_share .at_item{font-family:arial,helvetica,tahoma,verdana,sans-serif!important;font-size:9pt!important;outline-style:none;outline-width:0;line-height:1em}* html #at15s.mmborder{position:absolute!important}#at15s.mmborder{position:fixed!important;width:250px!important}#at15s{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);float:none;line-height:1em;margin:0;overflow:visible;padding:5px;text-align:left;position:absolute}#at15s a,#at15s span{outline:0;direction:ltr;text-transform:none}#at15s .at-label{margin-left:5px}#at15s .at-icon-wrapper{width:1pc;height:1pc;vertical-align:middle}#at15s .at-icon{width:1pc;height:1pc}.at4-icon{display:inline-block;background-repeat:no-repeat;background-position:top left;margin:0;overflow:hidden;cursor:pointer}.addthis_16x16_style .at4-icon,.addthis_default_style .at4-icon,.at4-icon,.at-16x16{width:1pc;height:1pc;line-height:1pc;background-size:1pc!important}.addthis_32x32_style .at4-icon,.at-32x32{width:2pc;height:2pc;line-height:2pc;background-size:2pc!important}.addthis_24x24_style .at4-icon,.at-24x24{width:24px;height:24px;line-height:24px;background-size:24px!important}.addthis_20x20_style .at4-icon,.at-20x20{width:20px;height:20px;line-height:20px;background-size:20px!important}.at4-icon.circular,.circular .at4-icon,.circular.aticon{border-radius:50%}.at4-icon.rounded,.rounded .at4-icon{border-radius:4px}.at4-icon-left{float:left}#at15s .at4-icon{text-indent:20px;padding:0;overflow:visible;white-space:nowrap;background-size:1pc;width:1pc;height:1pc;background-position:top left;display:inline-block;line-height:1pc}.addthis_vertical_style .at4-icon,.at4-follow-container .at4-icon{margin-right:5px}html>body #at15s{width:250px!important}#at15s.atm{background:none!important;padding:0!important;width:10pc!important}#at15s_inner{background:#fff;border:1px solid #fff;margin:0}#at15s_head{position:relative;background:#f2f2f2;padding:4px;cursor:default;border-bottom:1px solid #e5e5e5}.at15s_head_success{background:#cafd99!important;border-bottom:1px solid #a9d582!important}.at15s_head_success a,.at15s_head_success span{color:#000!important;text-decoration:none}#at15s_brand,#at15sptx,#at16_brand{position:absolute}#at15s_brand{top:4px;right:4px}.at15s_brandx{right:20px!important}a#at15sptx{top:4px;right:4px;text-decoration:none;color:#4c4c4c;font-weight:700}#at15sptx:hover{text-decoration:underline}#at16_brand{top:5px;right:30px;cursor:default}#at_hover{padding:4px}#at_hover .at_item,#at_share .at_item{background:#fff!important;float:left!important;color:#4c4c4c!important}#at_share .at_item .at-icon-wrapper{margin-right:5px}#at_hover .at_bold{font-weight:700;color:#000!important}#at_hover .at_item{width:7pc!important;padding:2px 3px!important;margin:1px;text-decoration:none!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover{margin:0!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover,#at_share .at_item.athov,#at_share .at_item:hover{background:#f2f2f2!important;border:1px solid #e5e5e5;color:#000!important;text-decoration:none}.ipad #at_hover .at_item:focus{background:#fff!important;border:1px solid #fff}.at15t{display:block!important;height:1pc!important;line-height:1pc!important;padding-left:20px!important;background-position:0 0;text-align:left}.addthis_button,.at15t{cursor:pointer}.addthis_toolbox a.at300b,.addthis_toolbox a.at300m{width:auto}.addthis_toolbox a{margin-bottom:5px;line-height:initial}.addthis_toolbox.addthis_vertical_style{width:200px}.addthis_button_facebook_like .fb_iframe_widget{line-height:100%}.addthis_button_facebook_like iframe.fb_iframe_widget_lift{max-width:none}.addthis_toolbox a.addthis_button_counter,.addthis_toolbox a.addthis_button_facebook_like,.addthis_toolbox a.addthis_button_facebook_send,.addthis_toolbox a.addthis_button_facebook_share,.addthis_toolbox a.addthis_button_foursquare,.addthis_toolbox a.addthis_button_google_plusone,.addthis_toolbox a.addthis_button_linkedin_counter,.addthis_toolbox a.addthis_button_pinterest_pinit,.addthis_toolbox a.addthis_button_stumbleupon_badge,.addthis_toolbox a.addthis_button_tweet{display:inline-block}.at-share-tbx-element .google_plusone_iframe_widget>span>div{vertical-align:top!important}.addthis_toolbox span.addthis_follow_label{display:none}.addthis_toolbox.addthis_vertical_style span.addthis_follow_label{display:block;white-space:nowrap}.addthis_toolbox.addthis_vertical_style a{display:block}.addthis_toolbox.addthis_vertical_style.addthis_32x32_style a{line-height:2pc;height:2pc}.addthis_toolbox.addthis_vertical_style .at300bs{margin-right:4px;float:left}.addthis_toolbox.addthis_20x20_style span{line-height:20px}.addthis_toolbox.addthis_32x32_style span{line-height:2pc}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact,.addthis_toolbox.addthis_pill_combo_style a{float:left}.addthis_toolbox.addthis_pill_combo_style a.addthis_button_tweet{margin-top:-2px}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact{margin-right:4px}.addthis_default_style .addthis_separator{margin:0 5px;display:inline}div.atclear{clear:both}.addthis_default_style .addthis_separator,.addthis_default_style .at4-icon,.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300bs,.addthis_default_style .at300m{float:left}.at300b img,.at300bo img{border:0}a.at300b .at4-icon,a.at300m .at4-icon{display:block}.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300m{padding:0 2px}.at300b,.at300bo,.at300bs,.at300m{cursor:pointer}.addthis_button_facebook_like.at300b:hover,.addthis_button_facebook_like.at300bs:hover,.addthis_button_facebook_send.at300b:hover,.addthis_button_facebook_send.at300bs:hover{opacity:1}.addthis_20x20_style .at15t,.addthis_20x20_style .at300bs{overflow:hidden;display:block;height:20px!important;width:20px!important;line-height:20px!important}.addthis_32x32_style .at15t,.addthis_32x32_style .at300bs{overflow:hidden;display:block;height:2pc!important;width:2pc!important;line-height:2pc!important}.at300bs{overflow:hidden;display:block;background-position:0 0;height:1pc;width:1pc;line-height:1pc!important}.addthis_default_style .at15t_compact,.addthis_default_style .at15t_expanded{margin-right:4px}#at_share .at_item{width:123px!important;padding:4px;margin-right:2px;border:1px solid #fff}#at16p{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);z-index:10000001;position:absolute;top:50%;left:50%;width:300px;padding:10px;margin:0 auto;margin-top:-185px;margin-left:-155px;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#5e5e5e}#at_share{margin:0;padding:0}#at16pt{position:relative;background:#f2f2f2;height:13px;padding:5px 10px}#at16pt a,#at16pt h4{font-weight:700}#at16pt h4{display:inline;margin:0;padding:0;font-size:9pt;color:#4c4c4c;cursor:default}#at16pt a{position:absolute;top:5px;right:10px;color:#4c4c4c;text-decoration:none;padding:2px}#at15sptx:focus,#at16pt a:focus{outline:thin dotted}#at15s #at16pf a{top:1px}#_atssh{width:1px!important;height:1px!important;border:0!important}.atm{width:10pc!important;padding:0;margin:0;line-height:9pt;letter-spacing:normal;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#444;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);padding:4px}.atm-f{text-align:right;border-top:1px solid #ddd;padding:5px 8px}.atm-i{background:#fff;border:1px solid #d5d6d6;padding:0;margin:0;box-shadow:1px 1px 5px rgba(0,0,0,.15)}.atm-s{margin:0!important;padding:0!important}.atm-s a:focus{border:transparent;outline:0;transition:none}#at_hover.atm-s a,.atm-s a{display:block;text-decoration:none;padding:4px 10px;color:#235dab!important;font-weight:400;font-style:normal;transition:none}#at_hover.atm-s .at_bold{color:#235dab!important}#at_hover.atm-s a:hover,.atm-s a:hover{background:#2095f0;text-decoration:none;color:#fff!important}#at_hover.atm-s .at_bold{font-weight:700}#at_hover.atm-s a:hover .at_bold{color:#fff!important}.atm-s a .at-label{vertical-align:middle;margin-left:5px;direction:ltr}.at_PinItButton{display:block;width:40px;height:20px;padding:0;margin:0;background-image:url(//s7.addthis.com/static/t00/pinit00.png);background-repeat:no-repeat}.at_PinItButton:hover{background-position:0 -20px}.addthis_toolbox .addthis_button_pinterest_pinit{position:relative}.at-share-tbx-element .fb_iframe_widget span{vertical-align:baseline!important}#at16pf{height:auto;text-align:right;padding:4px 8px}.at-privacy-info{position:absolute;left:7px;bottom:7px;cursor:pointer;text-decoration:none;font-family:helvetica,arial,sans-serif;font-size:10px;line-height:9pt;letter-spacing:.2px;color:#666}.at-privacy-info:hover{color:#000}.body .wsb-social-share .wsb-social-share-button-vert{padding-top:0;padding-bottom:0}.body .wsb-social-share.addthis_counter_style .addthis_button_tweet.wsb-social-share-button{padding-top:40px}.body .wsb-social-share.addthis_counter_style .addthis_button_google_plusone.wsb-social-share-button{padding-top:0}.body .wsb-social-share.addthis_counter_style .addthis_button_facebook_like.wsb-social-share-button{padding-top:21px}@media print{#at4-follow,#at4-share,#at4-thankyou,#at4-whatsnext,#at4m-mobile,#at15s,.at4,.at4-recommended{display:none!important}}@media screen and (max-width:400px){.at4win{width:100%}}@media screen and (max-height:700px) and (max-width:400px){.at4-thankyou-inner .at4-recommended-container{height:122px;overflow:hidden}.at4-thankyou-inner .at4-recommended .at4-recommended-item:first-child{border-bottom:1px solid #c5c5c5}}</style><style type="text/css">.at-branding-logo{font-family:helvetica,arial,sans-serif;text-decoration:none;font-size:10px;display:inline-block;margin:2px 0;letter-spacing:.2px}.at-branding-logo .at-branding-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////+GlNUkcc1QAAAB1JREFUeNpiYIQDBjQmAwMmkwEM0JnY1WIxFyDAABGeAFEudiZsAAAAAElFTkSuQmCC")}.at-branding-logo .at-branding-icon,.at-branding-logo .at-privacy-icon{display:inline-block;height:10px;width:10px;margin-left:4px;margin-right:3px;margin-bottom:-1px;background-repeat:no-repeat}.at-branding-logo .at-privacy-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAKCAMAAABR24SMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhQTFRF8fr9ot/xXcfn2/P5AKva////////AKTWodjhjAAAAAd0Uk5T////////ABpLA0YAAAA6SURBVHjaJMzBDQAwCAJAQaj7b9xifV0kUKJ9ciWxlzWEWI5gMF65KUTv0VKkjVeTerqE/x7+9BVgAEXbAWI8QDcfAAAAAElFTkSuQmCC")}.at-branding-logo span{text-decoration:none}.at-branding-logo .at-branding-addthis,.at-branding-logo .at-branding-powered-by{color:#666}.at-branding-logo .at-branding-addthis:hover{color:#333}.at-cv-with-image .at-branding-addthis,.at-cv-with-image .at-branding-addthis:hover{color:#fff}a.at-branding-logo:visited{color:initial}.at-branding-info{display:inline-block;padding:0 5px;color:#666;border:1px solid #666;border-radius:50%;font-size:10px;line-height:9pt;opacity:.7;transition:all .3s ease;text-decoration:none}.at-branding-info span{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.at-branding-info:before{content:'i';font-family:Times New Roman}.at-branding-info:hover{color:#0780df;border-color:#0780df}</style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Faster Parallel Reductions on Kepler_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Faster Parallel Reductions on Kepler_files/services.css"><script type="text/javascript" charset="utf-8" async="" src="./Faster Parallel Reductions on Kepler_files/button.abef804b234e6b908713c3107baca3f4.js.download"></script><script type="text/javascript" charset="utf-8" async="" src="./Faster Parallel Reductions on Kepler_files/timeline.6acaf768813ce8930b56fccda57f51f5.js.download"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.6320e20b57d877f77ba9dc866ff7fb10.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.94d68a3431b70c72522e54f84b601a07.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.3cba60108302f0c9d0a090529d661582.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"><script type="text/javascript" charset="utf-8" async="" src="./Faster Parallel Reductions on Kepler_files/136.6af2d0105b0c788761be.js.download"></script><script async="true" type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/roundtrip.js.download"></script><script async="true" type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/XRPEH5KVE5GI5GW4KWAAR7"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(2)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(3)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(4)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(5)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Faster Parallel Reductions on Kepler_files/out(6)">
+</div></head>
+<body class="post-template-default single single-post postid-2551 single-format-standard" data-gr-c-s-loaded="true">
+
+<div id="page" class="hfeed">
+	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header" style="">
+			<button class="navbar-toggle" type="button">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="logo-header">
+				<a href="https://developer.nvidia.com/"><img alt="NVIDIA Accelerated Computing" height="21" src="./Faster Parallel Reductions on Kepler_files/nvidia.png" width="112"></a>
+				<a href="https://developer.nvidia.com/accelerated-computing" class="title accelerated">ACCELERATED COMPUTING</a>
+			</div><!-- /.logo-header -->
+		</div><!-- /.navbar-header -->
+		<div class="collapse navbar-collapse" id="navbar-collapse" style="">
+			<ul class="nav navbar-nav" id="navbar-items">
+				<li class="menu-title">Cuda zone menu</li>
+				<li><a href="https://developer.nvidia.com/accelerated-computing-toolkit">Downloads</a></li>
+				<li><a href="https://developer.nvidia.com/accelerated-computing-training">Training</a></li>
+				<li><a href="https://developer.nvidia.com/tools-ecosystem">Ecosystem</a></li>
+				<li><a href="https://devtalk.nvidia.com/">Forums</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-margin navbar-right navbar-margin-media login-nav">
+				<li class="search" id="search-top">
+					<a class="hidden-xs hidden-sm" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#" id="trigger-search-top">
+						<i class="fa fa-search"></i>
+					</a>
+					<div class="search-form" id="search-top-form">
+						<form action="https://devblogs.nvidia.com/parallelforall/" accept-charset="UTF-8" method="get" id="search-theme-form">
+							<div>
+								<div id="search" class="container-inline">
+									<div class=" form-type-textfield form-item-search-theme-form form-item form-group">
+										<div class="input">
+											<input type="text" placeholder="Search..." name="search_theme_form" id="search-top-bar" value="" title="Enter the terms you wish to search for." class="form-text form-control " style="">
+											<span class="fa fa-search mobile-search"></span>
+											<div id="cuda-search-wrapper">
+												<input type="checkbox" id="cuda-search" name="cuda-search" value="1"> <label for="cuda-search">Search CUDA Zone</label>
+											</div>
+											<input type="hidden" id="s" name="s" value="">
+										</div><!-- /.input -->
+									</div><!-- /.form-type-textfield -->
+									<input type="hidden" name="form_build_id" id="form-psuQ7x3mMxCYiM5jWNkM_GhZlUH-jE68gGh2xJ6dG4U" value="form-psuQ7x3mMxCYiM5jWNkM_GhZlUH-jE68gGh2xJ6dG4U">
+									<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form">
+								</div><!-- /#search -->
+							</div>
+						</form>
+					</div><!-- /.search-form -->
+				</li>
+				<li class="cuda-program-link">
+					<a href="https://developer.nvidia.com/accelerated-computing-developer"><i class="fa fa-lock fa-fw"></i> Register Now</a>
+				</li>
+				<li>
+					<a href="https://developer.nvidia.com/user">Login</a>
+				</li>
+			</ul>
+		</div><!-- /.collapse -->
+	</div><!-- /.container -->
+</nav>
+	<header id="branding" role="banner">
+		<nav id="access" role="navigation">
+			<a class="sidr-left-link sidr-toggle" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#sidr-left"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
+			<h1 class="blog-title"><a href="https://devblogs.nvidia.com/parallelforall/"><img src="./Faster Parallel Reductions on Kepler_files/Parallel_ForAll_F_wht_H_237x20.png" width="237" height="20" alt="Parallel Forall"></a></h1>
+			<h3 class="assistive-text">Main menu</h3>
+						<div class="skip-link"><a class="assistive-text" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#content" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+						<div class="menu-main-menu-container"><ul id="menu-main-menu" class="menu"><li id="menu-item-3130" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3130"><a href="https://devblogs.nvidia.com/parallelforall/category/features/">Features</a></li>
+<li id="menu-item-1706" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1706"><a href="https://devblogs.nvidia.com/parallelforall/category/pro-tip/">Pro Tips</a></li>
+<li id="menu-item-1895" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1895"><a href="https://devblogs.nvidia.com/parallelforall/category/cuda-spotlight/">Spotlights</a></li>
+<li id="menu-item-1988" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1988"><a href="https://devblogs.nvidia.com/parallelforall/category/cudacasts/">CUDACasts</a></li>
+</ul></div>					</nav><!-- #access -->
+	</header>
+
+	<div id="main" class="grid clearfix">
+
+<div id="primary" class="c6-1234">
+	<div class="pagination pagination-single">
+		<span class="next"><a href="https://devblogs.nvidia.com/parallelforall/cudacasts-episode-17-unstructured-data-lifetimes-openacc-2-0/" rel="next">Next →</a></span>
+		<span class="previous"><a href="https://devblogs.nvidia.com/parallelforall/cudacasts-episode-16-thrust-algorithms-custom-operators/" rel="prev">← Previous</a></span>
+	</div>
+		<article id="post-2551" class="has-thumbnail post-2551 post type-post status-publish format-standard has-post-thumbnail hentry category-features tag-algorithms tag-cuda tag-kepler tag-parallel-programming">
+			<div class="entry-thumbnail">
+									<a href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/"><img width="179" height="115" src="./Faster Parallel Reductions on Kepler_files/Kepler_reductions_thumb-179x115.png" class="attachment-thumb-sm size-thumb-sm wp-post-image" alt="" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/Kepler_reductions_thumb.png 179w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/Kepler_reductions_thumb-140x90.png 140w" sizes="(max-width: 179px) 100vw, 179px"></a>
+							</div>
+			<header class="entry-header">
+				<h1 class="entry-title">Faster Parallel Reductions on Kepler</h1>
+				<!-- AddThis Button BEGIN -->
+				<div class="add-this addthis_toolbox addthis_default_style" addthis:url="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/" addthis:title="Faster Parallel Reductions on Kepler">
+					<div class="share-label">Share:</div>
+					<a class="addthis_button_twitter at300b" title="Twitter" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(29, 161, 242); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-twitter-1" title="Twitter" alt="Twitter" class="at-icon at-icon-twitter" style="width: 16px; height: 16px;"><title id="at-svg-twitter-1">Twitter</title><g><path d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336" fill-rule="evenodd"></path></g></svg></span></a>
+					<a class="addthis_button_reddit at300b" target="_blank" title="Reddit" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(255, 87, 0); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-reddit-2" title="Reddit" alt="Reddit" class="at-icon at-icon-reddit" style="width: 16px; height: 16px;"><title id="at-svg-reddit-2">Reddit</title><g><path d="M27 15.5a2.452 2.452 0 0 1-1.338 2.21c.098.38.147.777.147 1.19 0 1.283-.437 2.47-1.308 3.563-.872 1.092-2.06 1.955-3.567 2.588-1.506.634-3.143.95-4.91.95-1.768 0-3.403-.316-4.905-.95-1.502-.632-2.69-1.495-3.56-2.587-.872-1.092-1.308-2.28-1.308-3.562 0-.388.045-.777.135-1.166a2.47 2.47 0 0 1-1.006-.912c-.253-.4-.38-.842-.38-1.322 0-.678.237-1.26.712-1.744a2.334 2.334 0 0 1 1.73-.726c.697 0 1.29.26 1.78.782 1.785-1.258 3.893-1.928 6.324-2.01l1.424-6.467a.42.42 0 0 1 .184-.26.4.4 0 0 1 .32-.063l4.53 1.006c.147-.306.368-.553.662-.74a1.78 1.78 0 0 1 .97-.278c.508 0 .94.18 1.302.54.36.36.54.796.54 1.31 0 .512-.18.95-.54 1.315-.36.364-.794.546-1.302.546-.507 0-.94-.18-1.295-.54a1.793 1.793 0 0 1-.533-1.308l-4.1-.92-1.277 5.86c2.455.074 4.58.736 6.37 1.985a2.315 2.315 0 0 1 1.757-.757c.68 0 1.256.242 1.73.726.476.484.713 1.066.713 1.744zm-16.868 2.47c0 .513.178.95.534 1.315.356.365.787.547 1.295.547.508 0 .942-.182 1.302-.547.36-.364.54-.802.54-1.315 0-.513-.18-.95-.54-1.31-.36-.36-.794-.54-1.3-.54-.5 0-.93.183-1.29.547a1.79 1.79 0 0 0-.54 1.303zm9.944 4.406c.09-.09.135-.2.135-.323a.444.444 0 0 0-.44-.447c-.124 0-.23.042-.32.124-.336.348-.83.605-1.486.77a7.99 7.99 0 0 1-1.964.248 7.99 7.99 0 0 1-1.964-.248c-.655-.165-1.15-.422-1.486-.77a.456.456 0 0 0-.32-.124.414.414 0 0 0-.306.124.41.41 0 0 0-.135.317.45.45 0 0 0 .134.33c.352.355.837.636 1.455.843.617.207 1.118.33 1.503.366a11.6 11.6 0 0 0 1.117.056c.36 0 .733-.02 1.117-.056.385-.037.886-.16 1.504-.366.62-.207 1.104-.488 1.456-.844zm-.037-2.544c.507 0 .938-.182 1.294-.547.356-.364.534-.802.534-1.315 0-.505-.18-.94-.54-1.303a1.75 1.75 0 0 0-1.29-.546c-.506 0-.94.18-1.3.54-.36.36-.54.797-.54 1.31s.18.95.54 1.315c.36.365.794.547 1.3.547z" fill-rule="evenodd"></path></g></svg></span></a>
+					<a class="addthis_button_facebook at300b" title="Facebook" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(59, 89, 152); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-3" title="Facebook" alt="Facebook" class="at-icon at-icon-facebook" style="width: 16px; height: 16px;"><title id="at-svg-facebook-3">Facebook</title><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg></span></a>
+					<a class="addthis_button_google_plusone_share at300b" g:plusone:size="small" target="_blank" title="Google+" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(220, 78, 65); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-google_plusone_share-4" title="Google+" alt="Google+" class="at-icon at-icon-google_plusone_share" style="width: 16px; height: 16px;"><title id="at-svg-google_plusone_share-4">Google+</title><g><path d="M12 15v2.4h3.97c-.16 1.03-1.2 3.02-3.97 3.02-2.39 0-4.34-1.98-4.34-4.42s1.95-4.42 4.34-4.42c1.36 0 2.27.58 2.79 1.08l1.9-1.83C15.47 9.69 13.89 9 12 9c-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.72-2.84 6.72-6.84 0-.46-.05-.81-.11-1.16H12zm15 0h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2z" fill-rule="evenodd"></path></g></svg></span></a> 
+					<a class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(0, 119, 181); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-linkedin-5" title="LinkedIn" alt="LinkedIn" class="at-icon at-icon-linkedin" style="width: 16px; height: 16px;"><title id="at-svg-linkedin-5">LinkedIn</title><g><path d="M26 25.963h-4.185v-6.55c0-1.56-.027-3.57-2.175-3.57-2.18 0-2.51 1.7-2.51 3.46v6.66h-4.182V12.495h4.012v1.84h.058c.558-1.058 1.924-2.174 3.96-2.174 4.24 0 5.022 2.79 5.022 6.417v7.386zM8.23 10.655a2.426 2.426 0 0 1 0-4.855 2.427 2.427 0 0 1 0 4.855zm-2.098 1.84h4.19v13.468h-4.19V12.495z" fill-rule="evenodd"></path></g></svg></span></a>
+					<a class="addthis_button_email at300b" target="_blank" title="Email" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(132, 132, 132); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-email-6" title="Email" alt="Email" class="at-icon at-icon-email" style="width: 16px; height: 16px;"><title id="at-svg-email-6">Email</title><g><g fill-rule="evenodd"></g><path d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a>
+				<div class="atclear"></div></div>
+				<!-- AddThis Button END -->
+				<div class="entry-meta">
+					Posted on <a href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/" title="8:30 pm" rel="bookmark"><time class="entry-date" datetime="8:30 pm" pubdate="">February 13, 2014 </time></a> by <a href="https://devblogs.nvidia.com/parallelforall/author/jluitjens/" title="Posts by Justin Luitjens" class="author url fn" rel="author">Justin Luitjens</a>					<a class="meta-comments-link" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#disqus_thread" data-disqus-identifier="2551 http://devblogs.nvidia.com/parallelforall/?p=2551">46 Comments</a>
+										<span class="tag-links">
+						Tagged <a href="https://devblogs.nvidia.com/parallelforall/tag/algorithms/" rel="tag">Algorithms</a>, <a href="https://devblogs.nvidia.com/parallelforall/tag/cuda/" rel="tag">CUDA</a>, <a href="https://devblogs.nvidia.com/parallelforall/tag/kepler/" rel="tag">Kepler</a>, <a href="https://devblogs.nvidia.com/parallelforall/tag/parallel-programming/" rel="tag">Parallel Programming</a>					</span>
+				</div><!-- .entry-meta -->
+
+			</header><!-- .entry-header -->
+
+			<div class="entry-content">
+				<p>Parallel reduction is a common building block for many parallel algorithms. A&nbsp;<a href="http://docs.nvidia.com/cuda/samples/6_Advanced/reduction/doc/reduction.pdf" target="_blank">presentation from 2007 by Mark Harris</a>&nbsp;provided a detailed strategy for implementing parallel reductions on GPUs, but this 6-year old document bears updating. In this post I will show you some features of the Kepler GPU architecture which make reductions even faster: the shuffle (SHFL) instruction and fast device memory atomic operations.</p>
+<p><a href="https://github.com/parallel-forall/code-samples/tree/master/posts/parallel_reduction_with_shfl" target="_blank">The source code for this post is available on Github</a>.</p>
+<h2>Shuffle On Down</h2>
+<p>Efficient parallel reductions exchange&nbsp;data between threads within the same thread block. On earlier hardware this meant&nbsp;using shared memory, which involves writing data to&nbsp;shared memory, synchronizing, and then reading the data back from shared memory. Kepler’s shuffle instruction (SHFL) enables a thread to directly read a register from another thread in the same <a href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#simt-architecture" target="_blank">warp (32 threads)</a>. This allows threads in a warp to collectively exchange or broadcast data. As described in the post&nbsp;<a title="CUDA Pro Tip: Do The Kepler Shuffle" href="http://devblogs.nvidia.com/parallelforall/cuda-pro-tip-kepler-shuffle/">“Do the Kepler Shuffle”</a>,&nbsp;there are four shuffle intrinsics: <code>__shfl()</code>, <code>__shfl_down()</code>, <code>__shfl_up()</code>, and&nbsp;<code>__shfl_xor()</code>, but&nbsp;in this post we only use <code>__shfl_down()</code>, defined as follows: (You can find a complete description of the other shuffle functions <a href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/#warp-shuffle-functions" target="_blank">in the CUDA C Programming Guide</a>.)</p>
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">int</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="kwd">var</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">unsigned</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> delta</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> width</span><span class="pun">=</span><span class="pln">warpSize</span><span class="pun">);</span></pre>
+<p>__shfl_down()&nbsp;calculates a source lane ID by adding&nbsp;delta&nbsp;to the caller’s lane ID (the lane ID is a thread’s index within its warp, from 0 to 31). The value of&nbsp;var&nbsp;held by the resulting lane ID is returned: this has the effect of shifting&nbsp;var&nbsp;down the warp by&nbsp;delta&nbsp;lanes. If the source lane ID is out of range or the source thread has exited, the calling thread’s own <code>var</code> is returned.&nbsp;The ID number of the source lane will not wrap around the value of width and so the upper&nbsp;delta&nbsp;lanes will remain unchanged. Note that <code>width</code> must be one of (2, 4, 8, 16, 32).&nbsp;For brevity, the diagrams that follow show only 8 threads in a warp even though the warp size of all current CUDA GPUs is 32.</p>
+<p>As an example, Figure 1 shows the effect of the following two lines of code, where we can see that values are shifted down by 2 threads.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">%</span><span class="pln"> </span><span class="lit">32</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">int</span><span class="pln"> j </span><span class="pun">=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">i</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="lit">8</span><span class="pun">);</span></pre>
+<figure id="attachment_2716" aria-labelledby="figcaption_attachment_2716" class="wp-caption aligncenter" style="width: 576px"><img class="size-full wp-image-2716" src="./Faster Parallel Reductions on Kepler_files/shfl_down.png" alt="Figure 1: The shuffle down instruction." width="576" height="162" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/shfl_down.png 576w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/shfl_down-300x84.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/shfl_down-500x140.png 500w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/02/shfl_down-160x45.png 160w" sizes="(max-width: 576px) 100vw, 576px"><figcaption id="figcaption_attachment_2716" class="wp-caption-text">Figure 1: The shuffle down instruction.</figcaption></figure>
+<p>There are three main advantages to using shuffle instead of shared memory:<span id="more-2551"></span></p>
+<ol>
+<li>Shuffle replaces a multi-instruction shared memory sequence with a single instruction, increasing effective bandwidth and decreasing latency.</li>
+<li>Shuffle does not use any shared memory.</li>
+<li>Synchronization is within a warp and is implicit in the instruction, so there is no need to synchronize the whole thread block with <code>__syncthreads()</code>.</li>
+</ol>
+<p>Note also that the Kepler implementation of shuffle instruction only supports 32-bit data types, but you can easily use multiple calls to shuffle larger data types. Here is a double-precision implementation of <code>__shfl_down()</code>.&nbsp;<em>[Update June 2016: in recent&nbsp;versions of CUDA </em><code>__shfl</code><em> supports some larger types including double precision.&nbsp; The example is left here as a reference for other types that may not be supported].</em></p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__device__ </span><span class="kwd">inline</span><span class="pln">
+</span><span class="kwd">double</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> </span><span class="kwd">var</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">unsigned</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> srcLane</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> width</span><span class="pun">=</span><span class="lit">32</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  int2 a </span><span class="pun">=</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">reinterpret_cast</span><span class="pun">&lt;</span><span class="pln">int2</span><span class="pun">*&gt;(&amp;</span><span class="kwd">var</span><span class="pun">);</span><span class="pln">
+  a</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">a</span><span class="pun">.</span><span class="pln">x</span><span class="pun">,</span><span class="pln"> srcLane</span><span class="pun">,</span><span class="pln"> width</span><span class="pun">);</span><span class="pln">
+  a</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">a</span><span class="pun">.</span><span class="pln">y</span><span class="pun">,</span><span class="pln"> srcLane</span><span class="pun">,</span><span class="pln"> width</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">reinterpret_cast</span><span class="pun">&lt;</span><span class="kwd">double</span><span class="pun">*&gt;(&amp;</span><span class="pln">a</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>Note also that threads may only read data from another thread which is actively participating in the <code>__shfl()</code> command. If the target thread is inactive, the retrieved value is undefined. Therefore, the code examples in this post assume that the block size is a multiple of the warp size (32). Note that the shuffle size can be reduced with the third parameters, but it must be a power of two, and the examples in this post are written for shuffles of 32 threads for highest efficiency.</p>
+<h2>Shuffle Warp Reduce</h2>
+<p>Now that we understand what shuffle is let’s look at how we can use it to reduce within a warp. Figure 2 shows how we can use shuffle down to build a reduction tree. Please note that I have only included the arrows for the threads that are contributing to the final reduction. In reality all threads will be shifting values even though they are not needed in the reduction.</p>
+<figure id="attachment_2290" aria-labelledby="figcaption_attachment_2290" class="wp-caption aligncenter" style="width: 600px"><img class="alignnone size-large wp-image-2568" src="./Faster Parallel Reductions on Kepler_files/reduce-624x274.png" alt="reduce" width="600" height="263" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduce-624x274.png 624w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduce-300x132.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduce-500x220.png 500w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduce-160x70.png 160w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduce.png 1138w" sizes="(max-width: 600px) 100vw, 600px"><figcaption id="figcaption_attachment_2290" class="wp-caption-text">Figure 2: The reduction algorithm using shuffle down.</figcaption></figure>
+<p>After executing the three reduction thread 0 has the total reduced value in its variable <code>v</code>. We’re now ready to write the following complete shfl-based warp reduction function.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__inline__ __device__
+</span><span class="kwd">int</span><span class="pln"> warpReduceSum</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> val</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> offset </span><span class="pun">=</span><span class="pln"> warpSize</span><span class="pun">/</span><span class="lit">2</span><span class="pun">;</span><span class="pln"> offset </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> offset </span><span class="pun">/=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> 
+    val </span><span class="pun">+=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">val</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> val</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>Note, if all threads in the warp need the result, you can implement an “all reduce” within a warp using <code>__shfl_xor()</code> instead of <code>__shfl_down()</code>, like the following. Either version can be used in the block reduce of the next section.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__inline__ __device__
+</span><span class="kwd">int</span><span class="pln"> warpAllReduceSum</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> val</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> mask </span><span class="pun">=</span><span class="pln"> warpSize</span><span class="pun">/</span><span class="lit">2</span><span class="pun">;</span><span class="pln"> mask </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> mask </span><span class="pun">/=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> 
+    val </span><span class="pun">+=</span><span class="pln"> __shfl_xor</span><span class="pun">(</span><span class="pln">val</span><span class="pun">,</span><span class="pln"> mask</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> val</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<h2>Block Reduce</h2>
+<p>Using the <code>warpReduceSum</code> function we can now easily build a reduction across the entire block. To do this we first reduce within warps. Then the first thread of each warp writes its partial sum to shared memory. Finally, after synchronizing, the first warp reads from shared memory and reduces again.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__inline__ __device__
+</span><span class="kwd">int</span><span class="pln"> blockReduceSum</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> val</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><span class="kwd">static</span><span class="pln"> __shared__ </span><span class="kwd">int</span><span class="pln"> shared</span><span class="pun">[</span><span class="lit">32</span><span class="pun">];</span><span class="pln"> </span><span class="com">// Shared mem for 32 partial sums</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> lane </span><span class="pun">=</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">%</span><span class="pln"> warpSize</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> wid </span><span class="pun">=</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">/</span><span class="pln"> warpSize</span><span class="pun">;</span><span class="pln">
+
+  val </span><span class="pun">=</span><span class="pln"> warpReduceSum</span><span class="pun">(</span><span class="pln">val</span><span class="pun">);</span><span class="pln">     </span><span class="com">// Each warp performs partial reduction</span><span class="pln">
+
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">lane</span><span class="pun">==</span><span class="lit">0</span><span class="pun">)</span><span class="pln"> shared</span><span class="pun">[</span><span class="pln">wid</span><span class="pun">]=</span><span class="pln">val</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Write reduced value to shared memory</span><span class="pln">
+
+  __syncthreads</span><span class="pun">();</span><span class="pln">              </span><span class="com">// Wait for all partial reductions</span><span class="pln">
+
+  </span><span class="com">//read from shared memory only if that warp existed</span><span class="pln">
+  val </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&lt;</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">/</span><span class="pln"> warpSize</span><span class="pun">)</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> shared</span><span class="pun">[</span><span class="pln">lane</span><span class="pun">]</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">wid</span><span class="pun">==</span><span class="lit">0</span><span class="pun">)</span><span class="pln"> val </span><span class="pun">=</span><span class="pln"> warpReduceSum</span><span class="pun">(</span><span class="pln">val</span><span class="pun">);</span><span class="pln"> </span><span class="com">//Final reduce within first warp</span><span class="pln">
+
+  </span><span class="kwd">return</span><span class="pln"> val</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>As with <code>warpReduceSum</code> this function returns the reduced value on the first thread only. If all threads need the reduced value this could be quickly broadcast out by writing the reduce value to shared memory, calling <code>__syncthreads</code>, and reading the value in all threads.</p>
+<h2>Reducing Large Arrays</h2>
+<p>Now that we can reduce within a thread block, let’s look at how to reduce across a complete grid (many thread blocks). Reducing across blocks means global communication, which means synchronizing the grid, and that requires breaking our computation into two separate kernel launches. The first kernel generates and stores partial reduction results, and the second kernel reduces the partial results into a single total. We can actually do both steps with the following simple kernel code.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__global__ </span><span class="kwd">void</span><span class="pln"> deviceReduceKernel</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">in</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">*</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> N</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> sum </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+  </span><span class="com">//reduce multiple elements per thread</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> blockIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x</span><span class="pun">;</span><span class="pln"> 
+       i </span><span class="pun">&lt;</span><span class="pln"> N</span><span class="pun">;</span><span class="pln"> 
+       i </span><span class="pun">+=</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> gridDim</span><span class="pun">.</span><span class="pln">x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    sum </span><span class="pun">+=</span><span class="pln"> </span><span class="kwd">in</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  sum </span><span class="pun">=</span><span class="pln"> blockReduceSum</span><span class="pun">(</span><span class="pln">sum</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">threadIdx</span><span class="pun">.</span><span class="pln">x</span><span class="pun">==</span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">out</span><span class="pun">[</span><span class="pln">blockIdx</span><span class="pun">.</span><span class="pln">x</span><span class="pun">]=</span><span class="pln">sum</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>This kernel uses grid-stride loops (see the post <a title="CUDA Pro Tip: Write Flexible Kernels with Grid-Stride Loops" href="http://devblogs.nvidia.com/parallelforall/cuda-pro-tip-write-flexible-kernels-grid-stride-loops/">“CUDA Pro Tip: Write Flexible Kernels with Grid Stride Loops”</a>),&nbsp;which has two advantages:&nbsp;it allows us to reuse the kernel for both passes, and it computes per-thread sums in registers before calling <code>blockReduceSum()</code>. Doing the sum in registers significantly reduces the communication between threads for large array sizes. Note that the output array must have a size equal to or larger than the number of thread blocks in the grid because each block writes to a unique location within the array.</p>
+<p>The code to launch the kernels on the host is straightforward.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">void</span><span class="pln"> deviceReduce</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">in</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">*</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> N</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> threads </span><span class="pun">=</span><span class="pln"> </span><span class="lit">512</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> blocks </span><span class="pun">=</span><span class="pln"> min</span><span class="pun">((</span><span class="pln">N </span><span class="pun">+</span><span class="pln"> threads </span><span class="pun">-</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> threads</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">);</span><span class="pln">
+
+  deviceReduceKernel</span><span class="pun">&lt;&lt;&lt;</span><span class="pln">blocks</span><span class="pun">,</span><span class="pln"> threads</span><span class="pun">&gt;&gt;&gt;(</span><span class="kwd">in</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> N</span><span class="pun">);</span><span class="pln">
+  deviceReduceKernel</span><span class="pun">&lt;&lt;&lt;</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">&gt;&gt;&gt;(</span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> blocks</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>Here you can see that the first pass reduces using&nbsp;1024 blocks of 512 threads each, which is more than enough threads to saturate Kepler. We have chosen to restrict this phase to only 1024 blocks so that we only have 1024 partial results. In CUDA the maximum block size is 1024 threads. Since we have restricted the number of partial results to 1024 we can perform the second reduction phase of with a single block of 1024 threads.</p>
+<p>In a previous <a href="http://devblogs.nvidia.com/parallelforall/cuda-pro-tip-increase-performance-with-vectorized-memory-access/" target="_blank">CUDA pro-tip</a> we discussed how to increase performance by using vector loads. We can apply the same technique to reduction, and while I won’t discuss that optimization in this post, you can find our vectorized solutions in the <a href="https://github.com/parallel-forall/code-samples/tree/master/posts/parallel_reduction_with_shfl" target="_blank">source on Github</a>.</p>
+<h2>Atomic Power</h2>
+<p>Another Kepler architecture feature is fast device memory atomic operations, so let’s look at how we can use atomics to optimize reductions. The first way is to reduce across the warp using shuffle and then have the first thread of each warp atomically update the reduced value, as in the following code.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__global__ </span><span class="kwd">void</span><span class="pln"> deviceReduceWarpAtomicKernel</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">in</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">*</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> N</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> sum </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> blockIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x</span><span class="pun">;</span><span class="pln"> 
+      i </span><span class="pun">&lt;</span><span class="pln"> N</span><span class="pun">;</span><span class="pln"> 
+      i </span><span class="pun">+=</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> gridDim</span><span class="pun">.</span><span class="pln">x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    sum </span><span class="pun">+=</span><span class="pln"> </span><span class="kwd">in</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  sum </span><span class="pun">=</span><span class="pln"> warpReduceSum</span><span class="pun">(</span><span class="pln">sum</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&amp;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">warpSize </span><span class="pun">-</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+    atomicAdd</span><span class="pun">(</span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> sum</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>Here we can see the kernel looks very similar to the <code>deviceReduceKernel()</code> above, but instead of assigning the partial reduction to the output array we atomically add the partial reduction directly to final reduction value in memory. This code is much simpler because it launches only a single kernel and it doesn’t use shared memory, a temporary global array, or any <code>__syncthreads()</code>. The disadvantage is that there could be a lot of atomic collisions when adding the partials. However, in applications where there are not many collisions this is a great approach. Another possibly significant disadvantage is that floating point reductions will not be bit-wise exact from run to run, because of the different order of additions (<a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html" target="_blank">floating point arithmetic is not associative</a>&nbsp;[PDF]).</p>
+<p>Another way to use atomics would be to reduce the block and then immediately use <code>atomicAdd()</code>.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__global__ </span><span class="kwd">void</span><span class="pln"> deviceReduceBlockAtomicKernel</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*</span><span class="kwd">in</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">*</span><span class="pln"> </span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> N</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> sum </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> blockIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+</span><span class="pln"> threadIdx</span><span class="pun">.</span><span class="pln">x</span><span class="pun">;</span><span class="pln"> 
+      i </span><span class="pun">&lt;</span><span class="pln"> N</span><span class="pun">;</span><span class="pln"> 
+      i </span><span class="pun">+=</span><span class="pln"> blockDim</span><span class="pun">.</span><span class="pln">x </span><span class="pun">*</span><span class="pln"> gridDim</span><span class="pun">.</span><span class="pln">x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    sum </span><span class="pun">+=</span><span class="pln"> </span><span class="kwd">in</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  sum </span><span class="pun">=</span><span class="pln"> blockReduceSum</span><span class="pun">(</span><span class="pln">sum</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">threadIdx</span><span class="pun">.</span><span class="pln">x </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+    atomicAdd</span><span class="pun">(</span><span class="kwd">out</span><span class="pun">,</span><span class="pln"> sum</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>This approach requires fewer atomics than the warp atomic approach, executes only a single kernel, and does not require temporary memory, but it does use&nbsp;<code>__syncthreads()</code> and shared memory. This kernel could be useful when you want to avoid two kernel calls or extra allocation but have too much atomic pressure to use <code>warpReduceSum()</code> with atomics.</p>
+<p>Figure 3 compares the performance of the three device reduction algorithms on a Tesla&nbsp;K20X&nbsp;GPU.</p>
+<figure id="attachment_2571" aria-labelledby="figcaption_attachment_2571" class="wp-caption aligncenter" style="width: 600px"><img class="size-large wp-image-2571 " src="./Faster Parallel Reductions on Kepler_files/reduction-perf1-624x373.png" alt="reduction-perf1" width="600" height="358" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf1-624x373.png 624w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf1-300x179.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf1-500x298.png 500w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf1-150x90.png 150w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf1.png 1266w" sizes="(max-width: 600px) 100vw, 600px"><figcaption id="figcaption_attachment_2571" class="wp-caption-text">Figure 3: Reduction Bandwidth on K20X.</figcaption></figure>
+<p style="text-align: left;">Here we can see that the <code>warpReduceSum</code> followed by atomics is the fastest. Thus if you are working on integral data or are able to tolerate changes in the order of operations you may want to consider using atomics.&nbsp;In addition we can see that vectorizing provides a significant boost in performance.</p>
+<h2 style="text-align: left;">The CUB Library</h2>
+<p style="text-align: left;">Now that we have covered the low-level details of how to write efficient reductions let’s look at an easier way that you should consider using first: a library.&nbsp;<a href="http://nvlabs.github.io/cub/" target="_blank">CUB</a>&nbsp;is a library of common building blocks for parallel algorithms including reductions that is tuned for multiple CUDA GPU architectures and automatically picks the best algorithm for the GPU you are running on and the data size and type you are processing. Figure 4 shows that the performance of CUB matches or exceeds our custom reduction code.</p>
+<figure id="attachment_2572" aria-labelledby="figcaption_attachment_2572" class="wp-caption aligncenter" style="width: 600px"><img class="size-large wp-image-2572 " src="./Faster Parallel Reductions on Kepler_files/reduction-perf2-624x373.png" alt="reduction-perf2" width="600" height="358" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf2-624x373.png 624w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf2-300x179.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf2-500x298.png 500w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf2-150x90.png 150w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/reduction-perf2.png 1266w" sizes="(max-width: 600px) 100vw, 600px"><figcaption id="figcaption_attachment_2572" class="wp-caption-text">Figure 4: Reduction Bandwidth with CUB</figcaption></figure>
+<h2 style="text-align: left;">Interleaving Multiple Reductions</h2>
+<p style="text-align: left;">Before I end this post there is one last trick that I would like to leave you with. It is common to need to reduce multiple fields at the same time. A simple solution is to reduce one field at a time (for example by calling reduce multiple times). But this is not the most efficient method, so let’s look at the assembly for the warp reduction shown in Figure 5.</p>
+<figure id="attachment_2574" aria-labelledby="figcaption_attachment_2574" class="wp-caption alignright" style="width: 300px"><img class="size-medium wp-image-2574" src="./Faster Parallel Reductions on Kepler_files/shfl_sass-e1392348023371-300x142.png" alt="Figure 5: SASS for a single shuffle reductions" width="300" height="142" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass-e1392348023371-300x142.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass-e1392348023371-624x296.png 624w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass-e1392348023371.png 995w" sizes="(max-width: 300px) 100vw, 300px"><figcaption id="figcaption_attachment_2574" class="wp-caption-text">Figure 5: SASS for a single shuffle reductions</figcaption></figure>
+<p>Here the arrows show dependencies; you can see that every instruction is dependent on the one before it, so there is no instruction-level parallelism (ILP) exposed. Perform multiple reductions at the same time by interleaving their instructions is more efficient because it increases ILP. The following code shows an example for an x, y, z triple.</p>
+<pre class="prettyprint prettyprinted" style=""><span class="pln">__inline__ __device__
+int3 warpReduceSumTriple</span><span class="pun">(</span><span class="pln">int3 val</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> offset </span><span class="pun">=</span><span class="pln"> warpSize </span><span class="pun">/</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln"> offset </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> offset </span><span class="pun">/=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    val</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">val</span><span class="pun">.</span><span class="pln">x</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">);</span><span class="pln">
+    val</span><span class="pun">.</span><span class="pln">y </span><span class="pun">+=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">val</span><span class="pun">.</span><span class="pln">y</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">);</span><span class="pln">
+    val</span><span class="pun">.</span><span class="pln">z </span><span class="pun">+=</span><span class="pln"> __shfl_down</span><span class="pun">(</span><span class="pln">val</span><span class="pun">.</span><span class="pln">z</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> val</span><span class="pun">;</span><span class="pln"> 
+</span><span class="pun">}</span></pre>
+<figure id="attachment_2575" aria-labelledby="figcaption_attachment_2575" class="wp-caption alignright" style="width: 300px"><img class="size-medium wp-image-2575" src="./Faster Parallel Reductions on Kepler_files/shfl_sass_interleaved-e1392348072780-300x116.png" alt="" width="300" height="116" srcset="https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass_interleaved-e1392348072780-300x116.png 300w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass_interleaved-e1392348072780-624x243.png 624w, https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/01/shfl_sass_interleaved-e1392348072780.png 1003w" sizes="(max-width: 300px) 100vw, 300px"><figcaption id="figcaption_attachment_2575" class="wp-caption-text">Figure 6: SASS for interleaved shuffle reductions</figcaption></figure>
+<p>This leads to the SASS shown in Figure 6 (note that I have only shown the first few lines for brevity).</p>
+<p>Here we can see we no longer have dependent instructions immediately following each other. Therefore more instructions are able to issue back-to-back without stalling, reducing the total exposed latency and thereby reducing the overall execution time.</p>
+
+<div class="zem_rp_wrap zem_rp_th_modern" id="zem_rp_first"><div class="zem_rp_content"><h3 class="related_post_title">Related Posts</h3><ul class="related_post zem_rp"><li data-position="0" data-poid="in-3906" data-post-type="none"><a href="https://devblogs.nvidia.com/parallelforall/cuda-pro-tip-optimized-filtering-warp-aggregated-atomics/" class="zem_rp_title">CUDA Pro Tip: Optimized Filtering with Warp-Aggregated Atomics</a></li><li data-position="1" data-poid="in-3369" data-post-type="none"><a href="https://devblogs.nvidia.com/parallelforall/accelerate-r-applications-cuda/" class="zem_rp_title">Accelerate R Applications with CUDA</a></li><li data-position="2" data-poid="in-8415" data-post-type="none"><a href="https://devblogs.nvidia.com/parallelforall/cooperative-groups/" class="zem_rp_title">Cooperative Groups: Flexible CUDA Thread Programming</a></li><li data-position="3" data-poid="in-3278" data-post-type="none"><a href="https://devblogs.nvidia.com/parallelforall/a-cuda-dynamic-parallelism-case-study-panda/" class="zem_rp_title">A CUDA Dynamic Parallelism Case Study: PANDA</a></li></ul></div></div>
+<div class="parallel-forall-signature">∥∀</div>
+      <div class="add-this addthis_toolbox addthis_default_style" addthis:url="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/" addthis:title="Faster Parallel Reductions on Kepler">
+        <div class="share-label">Share:</div>
+        <a class="addthis_button_twitter at300b" title="Twitter" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(29, 161, 242); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-twitter-7" title="Twitter" alt="Twitter" class="at-icon at-icon-twitter" style="width: 16px; height: 16px;"><title id="at-svg-twitter-7">Twitter</title><g><path d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_reddit at300b" target="_blank" title="Reddit" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(255, 87, 0); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-reddit-8" title="Reddit" alt="Reddit" class="at-icon at-icon-reddit" style="width: 16px; height: 16px;"><title id="at-svg-reddit-8">Reddit</title><g><path d="M27 15.5a2.452 2.452 0 0 1-1.338 2.21c.098.38.147.777.147 1.19 0 1.283-.437 2.47-1.308 3.563-.872 1.092-2.06 1.955-3.567 2.588-1.506.634-3.143.95-4.91.95-1.768 0-3.403-.316-4.905-.95-1.502-.632-2.69-1.495-3.56-2.587-.872-1.092-1.308-2.28-1.308-3.562 0-.388.045-.777.135-1.166a2.47 2.47 0 0 1-1.006-.912c-.253-.4-.38-.842-.38-1.322 0-.678.237-1.26.712-1.744a2.334 2.334 0 0 1 1.73-.726c.697 0 1.29.26 1.78.782 1.785-1.258 3.893-1.928 6.324-2.01l1.424-6.467a.42.42 0 0 1 .184-.26.4.4 0 0 1 .32-.063l4.53 1.006c.147-.306.368-.553.662-.74a1.78 1.78 0 0 1 .97-.278c.508 0 .94.18 1.302.54.36.36.54.796.54 1.31 0 .512-.18.95-.54 1.315-.36.364-.794.546-1.302.546-.507 0-.94-.18-1.295-.54a1.793 1.793 0 0 1-.533-1.308l-4.1-.92-1.277 5.86c2.455.074 4.58.736 6.37 1.985a2.315 2.315 0 0 1 1.757-.757c.68 0 1.256.242 1.73.726.476.484.713 1.066.713 1.744zm-16.868 2.47c0 .513.178.95.534 1.315.356.365.787.547 1.295.547.508 0 .942-.182 1.302-.547.36-.364.54-.802.54-1.315 0-.513-.18-.95-.54-1.31-.36-.36-.794-.54-1.3-.54-.5 0-.93.183-1.29.547a1.79 1.79 0 0 0-.54 1.303zm9.944 4.406c.09-.09.135-.2.135-.323a.444.444 0 0 0-.44-.447c-.124 0-.23.042-.32.124-.336.348-.83.605-1.486.77a7.99 7.99 0 0 1-1.964.248 7.99 7.99 0 0 1-1.964-.248c-.655-.165-1.15-.422-1.486-.77a.456.456 0 0 0-.32-.124.414.414 0 0 0-.306.124.41.41 0 0 0-.135.317.45.45 0 0 0 .134.33c.352.355.837.636 1.455.843.617.207 1.118.33 1.503.366a11.6 11.6 0 0 0 1.117.056c.36 0 .733-.02 1.117-.056.385-.037.886-.16 1.504-.366.62-.207 1.104-.488 1.456-.844zm-.037-2.544c.507 0 .938-.182 1.294-.547.356-.364.534-.802.534-1.315 0-.505-.18-.94-.54-1.303a1.75 1.75 0 0 0-1.29-.546c-.506 0-.94.18-1.3.54-.36.36-.54.797-.54 1.31s.18.95.54 1.315c.36.365.794.547 1.3.547z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_facebook at300b" title="Facebook" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(59, 89, 152); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-9" title="Facebook" alt="Facebook" class="at-icon at-icon-facebook" style="width: 16px; height: 16px;"><title id="at-svg-facebook-9">Facebook</title><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_google_plusone_share at300b" g:plusone:size="small" target="_blank" title="Google+" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(220, 78, 65); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-google_plusone_share-10" title="Google+" alt="Google+" class="at-icon at-icon-google_plusone_share" style="width: 16px; height: 16px;"><title id="at-svg-google_plusone_share-10">Google+</title><g><path d="M12 15v2.4h3.97c-.16 1.03-1.2 3.02-3.97 3.02-2.39 0-4.34-1.98-4.34-4.42s1.95-4.42 4.34-4.42c1.36 0 2.27.58 2.79 1.08l1.9-1.83C15.47 9.69 13.89 9 12 9c-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.72-2.84 6.72-6.84 0-.46-.05-.81-.11-1.16H12zm15 0h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(0, 119, 181); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-linkedin-11" title="LinkedIn" alt="LinkedIn" class="at-icon at-icon-linkedin" style="width: 16px; height: 16px;"><title id="at-svg-linkedin-11">LinkedIn</title><g><path d="M26 25.963h-4.185v-6.55c0-1.56-.027-3.57-2.175-3.57-2.18 0-2.51 1.7-2.51 3.46v6.66h-4.182V12.495h4.012v1.84h.058c.558-1.058 1.924-2.174 3.96-2.174 4.24 0 5.022 2.79 5.022 6.417v7.386zM8.23 10.655a2.426 2.426 0 0 1 0-4.855 2.427 2.427 0 0 1 0 4.855zm-2.098 1.84h4.19v13.468h-4.19V12.495z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_email at300b" target="_blank" title="Email" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#"><span class="at-icon-wrapper" style="background-color: rgb(132, 132, 132); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-email-12" title="Email" alt="Email" class="at-icon at-icon-email" style="width: 16px; height: 16px;"><title id="at-svg-email-12">Email</title><g><g fill-rule="evenodd"></g><path d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a>
+      <div class="atclear"></div></div>
+    				<!--extra here-->
+							</div><!-- .entry-content -->
+			<footer class="entry-meta">
+								<div id="author-info" class="author-box">
+					<h2>About Justin Luitjens</h2>
+					<div id="author-avatar">
+						<img alt="Justin Luitjens" src="./Faster Parallel Reductions on Kepler_files/justin_luitjens-e1386260727154.jpg" class="avatar avatar-60 photo" height="60" width="60">					</div><!-- #author-avatar -->
+					<div id="author-description">
+						Justin Luitjens is a member of the Developer Technology team at NVIDIA where he works on accelerating applications on GPUs. He holds a Ph.D in Scientific Computing from the University of Utah.																			<div id="author-link">
+								<a href="https://devblogs.nvidia.com/parallelforall/author/jluitjens/" rel="author">
+									View all posts by Justin Luitjens <span class="meta-nav">→</span>								</a>
+							</div><!-- #author-link	-->
+											</div><!-- #author-description	-->
+				</div><!-- #author-info -->
+							</footer><!-- .entry-meta -->
+		</article><!-- #post-2551 -->
+
+
+<div id="disqus_thread"><iframe id="dsq-app2545" name="dsq-app2545" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Faster Parallel Reductions on Kepler_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 9558px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+<script type="text/javascript">
+var disqus_url = 'https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/';
+var disqus_identifier = '2551 http://devblogs.nvidia.com/parallelforall/?p=2551';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'nvparallelforall';
+var disqus_title = "Faster Parallel Reductions on Kepler";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=2551';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+	
+</div> <!-- #content -->
+<div id="secondary" class="c6-56 widget-area sidebar" role="complementary">
+	<aside id="subscribe">
+		<div class="subscribe-via">
+			<p><span>Subscribe:</span> <a href="http://feeds.feedburner.com/nvidia/parallelforall" rel="alternate" type="application/rss+xml" class="sub-rss">RSS</a> <a href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#" class="sub-email">Email</a></p>
+			<p class="subscribe-connect clearfix"><span>Connect:</span> <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" title="Twitter Follow Button" src="./Faster Parallel Reductions on Kepler_files/follow_button.82c7dfc5ca6196724781971f8af5eca4.en.html" style="position: static; visibility: visible; width: 147px; height: 20px;" data-screen-name="gpucomputing"></iframe>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
+			<div class="email-box">
+				<a href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#" class="close">X</a>
+				<form onsubmit="window.open(&#39;https://feedburner.google.com/fb/a/mailverify?uri=nvidia/parallelforall&#39;, &#39;popupwindow&#39;, &#39;scrollbars=no, width=550,height=520&#39;);return true" target="popupwindow" method="post" name="feedburneremail" action="https://feedburner.google.com/fb/a/mailverify"> 
+					<fieldset>
+						<h3>Enter your email address:</h3>
+						<p>
+							<input type="text" name="email">
+						</p>
+						<input type="hidden" name="uri" value="nvidia/parallelforall">
+						<input type="hidden" name="loc" value="en_US">
+						<p class="submit" onclick="document.getElementById(&#39;subscribesubmit&#39;).click();">
+							<button id="subscribesubmit_1" type="submit">Subscribe</button>
+						</p>
+						<div class="clr"></div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</aside>
+	<aside id="metaslider_widget-2" class="widget clearfix widget_metaslider_widget"><!-- meta slider -->
+<div style="width: 100%; margin: 0 auto;" class="metaslider metaslider-flex metaslider-1824 ml-slider nav-hidden">
+    <style type="text/css" id="metaslider-css-1824">
+        #metaslider_1824.flexslider .slides li {margin-right: 5px !important;}
+    </style>
+    <div id="metaslider_container_1824">
+        <div id="metaslider_1824" class="flexslider">
+            
+        <div class="flex-viewport" style="overflow: hidden; position: relative;"><ul class="slides" style="width: 800%; margin-left: -570px;">
+                <li style="display: block; width: 280px; float: left;" class="slide-8386 ms-image"><a href="http://nvda.ws/2y4ckZL" target="_blank"><img src="./Faster Parallel Reductions on Kepler_files/enterprise-inference-dev-tensor-rt-p4a-sidebar-280x160.png" height="160" width="280" alt="" class="slider-1824 slide-8386" draggable="false"></a></li>
+                <li style="display: block; width: 280px; float: left;" class="slide-8262 ms-image"><a href="https://www.gputechconf.eu/Register.aspx?nvid=nv-int-ng-19667" target="_blank"><img src="./Faster Parallel Reductions on Kepler_files/GTC_EUROPE_DEVZONE_PARALLEL_FORAL_BLOG_280X160PX_EN_24MAY17.jpg" height="160" width="280" alt="GTC Europe 2017" class="slider-1824 slide-8262" draggable="false"></a></li>
+                <li style="display: block; width: 280px; float: left;" class="slide-8394 ms-image"><a href="https://event.on24.com/eventRegistration/EventLobbyServlet?target=reg20.jsp&amp;referrer=&amp;eventid=1502077&amp;sessionid=1&amp;key=E1A19393A01300C77A35B844374D79CE&amp;regTag=155003&amp;sourcepage=register" target="_blank"><img src="./Faster Parallel Reductions on Kepler_files/openacc-course-280x160-p4asidebar.jpg" height="160" width="280" alt="" class="slider-1824 slide-8394" draggable="false"></a></li>
+                <li style="display: block; width: 280px; float: left;" class="slide-8323 ms-image"><a href="http://nvda.ws/2uZeBQM" target="_blank"><img src="./Faster Parallel Reductions on Kepler_files/embedded-jtx1-dev-kit-se-paid-banners-280x160.jpg" height="160" width="280" alt="Embedded Jetson TX1 Devkit" class="slider-1824 slide-8323" draggable="false"></a></li>
+            </ul></div><ul class="flex-direction-nav"><li><a class="flex-prev" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#">&lt;</a></li><li><a class="flex-next" href="https://devblogs.nvidia.com/parallelforall/faster-parallel-reductions-kepler/#">&gt;</a></li></ul></div>
+        
+    </div>
+    <script type="text/javascript">
+        var metaslider_1824 = function($) {
+            $('#metaslider_1824').addClass('flexslider'); // theme/plugin conflict avoidance
+            $('#metaslider_1824').flexslider({ 
+                slideshowSpeed:4500,
+                animation:'slide',
+                controlNav:false,
+                directionNav:true,
+                pauseOnHover:true,
+                direction:'horizontal',
+                reverse:false,
+                animationSpeed:600,
+                prevText:"&lt;",
+                nextText:"&gt;",
+                easing:"easeInQuad",
+                slideshow:true,
+                itemWidth:280,
+                minItems:1,
+                itemMargin:5,
+                useCSS:false
+            });
+        };
+        var timer_metaslider_1824 = function() {
+            var slider = !window.jQuery ? window.setTimeout(timer_metaslider_1824, 100) : !jQuery.isReady ? window.setTimeout(timer_metaslider_1824, 1) : metaslider_1824(window.jQuery);
+        };
+        timer_metaslider_1824();
+    </script>
+</div>
+<!--// meta slider--></aside><aside id="nav_menu-2" class="widget clearfix widget_nav_menu"><h1 class="widget-title">Resources</h1><div class="menu-sidebar-links-container"><ul id="menu-sidebar-links" class="menu"><li id="menu-item-1820" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1820"><a href="https://devblogs.nvidia.com/parallelforall/about/">About Parallel Forall</a></li>
+<li id="menu-item-1821" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1821"><a href="https://devtalk.nvidia.com/">NVIDIA Developer Forums</a></li>
+<li id="menu-item-2129" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2129"><a href="http://www.nvidia.com/object/cuda_signup_alerts.html">Accelerated Computing Newsletter</a></li>
+</ul></div></aside><aside id="top-posts-3" class="widget clearfix widget_top-posts"><h1 class="widget-title">Popular Posts</h1><ul class="widgets-list-layout no-grav">
+					<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/even-easier-introduction-cuda/" title="An Even Easier Introduction to CUDA" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/cuda_indexing.png" class="widgets-list-layout-blavatar" alt="An Even Easier Introduction to CUDA" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/even-easier-introduction-cuda/" class="bump-view" data-bump-view="tp">
+								An Even Easier Introduction to CUDA							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/programming-tensor-cores-cuda-9/" title="Programming Tensor Cores in CUDA 9" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/tensor_core_cudnn_speedup-1-e1508222018353.png" class="widgets-list-layout-blavatar" alt="Programming Tensor Cores in CUDA 9" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/programming-tensor-cores-cuda-9/" class="bump-view" data-bump-view="tp">
+								Programming Tensor Cores in CUDA 9							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/easy-introduction-cuda-c-and-c/" title="An Easy Introduction to CUDA C and C++" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/CUDA_Cube_1K-300x298.jpg" class="widgets-list-layout-blavatar" alt="An Easy Introduction to CUDA C and C++" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/easy-introduction-cuda-c-and-c/" class="bump-view" data-bump-view="tp">
+								An Easy Introduction to CUDA C and C++							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/training-self-driving-vehicles-challenge-scale/" title="Training AI for Self-Driving Vehicles: the Challenge of Scale" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/car_thumb.png" class="widgets-list-layout-blavatar" alt="Training AI for Self-Driving Vehicles: the Challenge of Scale" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/training-self-driving-vehicles-challenge-scale/" class="bump-view" data-bump-view="tp">
+								Training AI for Self-Driving Vehicles:&nbsp;the Challenge of Scale							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/deep-learning-nutshell-core-concepts/" title="Deep Learning in a Nutshell: Core Concepts" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/DL_dog_340x340-300x300.jpg" class="widgets-list-layout-blavatar" alt="Deep Learning in a Nutshell: Core Concepts" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/deep-learning-nutshell-core-concepts/" class="bump-view" data-bump-view="tp">
+								Deep Learning in a Nutshell: Core Concepts							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/seven-things-numba/" title="Seven Things You Might Not Know about Numba" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/7388996.png" class="widgets-list-layout-blavatar" alt="Seven Things You Might Not Know about Numba" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/seven-things-numba/" class="bump-view" data-bump-view="tp">
+								Seven Things You Might Not Know about Numba							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/inside-volta/" title="Inside Volta: The World’s Most Advanced Data Center GPU" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/image11.jpg" class="widgets-list-layout-blavatar" alt="Inside Volta: The World’s Most Advanced Data Center GPU" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/inside-volta/" class="bump-view" data-bump-view="tp">
+								Inside Volta: The World’s Most Advanced Data Center GPU							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/jetson-tx2-delivers-twice-intelligence-edge/" title="NVIDIA Jetson TX2 Delivers Twice the Intelligence to the Edge" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/Tegra_Parker_Block_Diagram-1.png" class="widgets-list-layout-blavatar" alt="NVIDIA Jetson TX2 Delivers Twice the Intelligence to the Edge" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/jetson-tx2-delivers-twice-intelligence-edge/" class="bump-view" data-bump-view="tp">
+								NVIDIA Jetson TX2 Delivers Twice the Intelligence to the Edge							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/using-shared-memory-cuda-cc/" title="Using Shared Memory in CUDA C/C++" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/CUDA_Cube_1K-300x298.jpg" class="widgets-list-layout-blavatar" alt="Using Shared Memory in CUDA C/C++" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/using-shared-memory-cuda-cc/" class="bump-view" data-bump-view="tp">
+								Using Shared Memory in CUDA C/C++							</a>
+						</div>
+											</li>
+									<li>
+												<a href="https://devblogs.nvidia.com/parallelforall/cuda-9-features-revealed/" title="CUDA 9 Features Revealed: Volta, Cooperative Groups and More" class="bump-view" data-bump-view="tp">
+							<img width="40" height="40" src="./Faster Parallel Reductions on Kepler_files/profiler_unified_memory_events.png" class="widgets-list-layout-blavatar" alt="CUDA 9 Features Revealed: Volta, Cooperative Groups and More" data-pin-nopin="true">
+						</a>
+						<div class="widgets-list-layout-links">
+							<a href="https://devblogs.nvidia.com/parallelforall/cuda-9-features-revealed/" class="bump-view" data-bump-view="tp">
+								CUDA 9 Features Revealed: Volta, Cooperative Groups and More							</a>
+						</div>
+											</li>
+				</ul>
+</aside><aside id="twitter_timeline-2" class="widget clearfix widget_twitter_timeline"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-timeline twitter-timeline-rendered" style="position: static; visibility: visible; display: inline-block; width: 282px; height: 400px; padding: 0px; border: none; max-width: 100%; min-width: 180px; margin-top: 0px; margin-bottom: 0px; min-height: 200px;" data-widget-id="profile:NVIDIAHPCDev" src="./Faster Parallel Reductions on Kepler_files/saved_resource(4).html"></iframe></aside></div><!--#secondary-->
+
+	<!--wp code prettify-->
+	<script type="text/javascript">
+	function $(id) {return !id ? null : document.getElementById(id);}
+
+	loadPrettifyCss = function () {
+		if(!$('prettify_css')) {
+			css = document.createElement('link');
+			css.id = 'prettify_css';
+			css.type = 'text/css';
+			css.rel = 'stylesheet';
+			css.href = 'https://devblogs.nvidia.com/parallelforall/wp-content/plugins/wp-code-prettify/css/prettify.css';
+			var headNode = document.getElementsByTagName("head")[0];
+			headNode.appendChild(css);
+		} else {
+			$('prettify_css').href = 'https://devblogs.nvidia.com/parallelforall/wp-content/plugins/wp-code-prettify/css/prettify.css';
+		}
+
+		if(!$('prettify_custom')) {
+			css = document.createElement('style');
+			css.id = 'prettify_custom';
+			css.type = 'text/css';
+			css.rel = 'stylesheet';
+			css.innerHTML = 'pre.prettyprint { max-height: 500px; white-space: pre; word-wrap: normal; overflow: auto; background-color: #f8f8f8;border-radius: 3px; } pre.prettyprint[title]:before { float: right; border: 1px solid #ccc; border-radius: 3px; background: #ddd; padding: 10px; content: attr(title);  font: 13px "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, sans-serif; }';
+			var headNode = document.getElementsByTagName("head")[0];
+			headNode.appendChild(css);
+		} else {
+			$('prettify_css').innerHTML = 'pre.prettyprint { max-height: 500px; white-space: pre; word-wrap: normal; overflow: auto; background-color: #f8f8f8;border-radius: 3px; } pre.prettyprint[title]:before { float: right; border: 1px solid #ccc; border-radius: 3px; background: #ddd; padding: 10px; content: attr(title);  font: 13px "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, sans-serif; }';
+		}
+	}
+	</script>
+	<script type="text/javascript">
+		loadPrettifyCss();
+	</script>
+
+	<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/prettify.js.download"></script>
+	<script type="text/javascript">
+		function wpCodePrettifyOnLoad(func){
+			var wpCodePrettifyOldOnLoad = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func
+			} else {
+				window.onload = function () {
+					wpCodePrettifyOldOnLoad();
+					func()
+				}
+			}
+		}
+
+		wpCodePrettifyOnLoad(function(){prettyPrint();});
+	</script>
+	<!--//wp code prettify-->
+	
+	</div><!-- #main -->
+
+</div><!-- #page -->
+
+<footer class="cuda-footer">
+	<div class="footer-links">
+		<div class="container">
+			<div class="row">
+				<div class="footer-top">
+					<div class="padding-md-footer">
+						<div class="logo-footer"></div>
+					</div>
+					<div class="padding-section-footer">
+						<ul class="zone-select">
+							<li id="menu-item-5089" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5089"><a href="https://developer.nvidia.com/accelerated-computing">ACCELERATED COMPUTING</a></li>
+<li id="menu-item-5090" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5090"><a href="https://developer.nvidia.com/gameworks">GAMEWORKS</a></li>
+<li id="menu-item-5091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5091"><a href="https://developer.nvidia.com/embedded-computing">EMBEDDED COMPUTING</a></li>
+<li id="menu-item-5092" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5092"><a href="https://developer.nvidia.com/designworks">DESIGNWORKS</a></li>
+						</ul>
+					</div><!-- /.cols-xs-12 -->
+				</div><!-- /.col-xs-12 -->
+				<div class="footer-btm">
+					<div class="block block-menu footer-col" id="block-menu-menu-cuda-zone-category-1 ">
+						<div class="padding-sub-footer">
+							<h5>
+								GET STARTED							</h5>
+							<div class="block-content">
+								<ul id="navbar-items" class="menu">
+									<li id="menu-item-5093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5093"><a href="https://developer.nvidia.com/about-cuda">About CUDA</a></li>
+<li id="menu-item-5094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5094"><a href="https://developer.nvidia.com/accelerated-computing-training">Parallel Computing</a></li>
+<li id="menu-item-5095" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5095"><a href="https://developer.nvidia.com/cuda-toolkit">CUDA Toolkit</a></li>
+<li id="menu-item-5096" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5096"><a href="http://www.youtube.com/playlist?list=PL5B692fm6--vScfBaxgY89IRWFzDt0Khm">CUDACast</a></li>
+								</ul>
+							</div><!-- /.block-content -->
+						</div><!-- /.padding-sub-footer -->
+					</div><!-- /.block -->
+					<div class="block block-menu footer-col" id="block-menu-menu-cuda-zone-category-2 ">
+						<div class="padding-sub-footer">
+							<h5>
+								LEARN MORE							</h5>
+							<div class="block-content">
+								<ul id="navbar-items" class="menu">
+									<li id="menu-item-5101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5101"><a title="Get help getting or providing education or training on Parallel Computing" href="https://developer.nvidia.com/cuda-education-training">Training and Courseware</a></li>
+<li id="menu-item-5102" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5102"><a href="https://developer.nvidia.com/tools-ecosystem">Tools and Ecosystem</a></li>
+<li id="menu-item-5103" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5103"><a href="https://developer.nvidia.com/academia">Academic Collaboration</a></li>
+<li id="menu-item-5104" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5104"><a href="http://docs.nvidia.com/cuda/index.html">Documentation</a></li>
+								</ul>
+							</div><!-- /.block-content -->
+						</div><!-- /.padding-sub-footer -->
+					</div><!-- /.block -->
+					<div class="block block-menu footer-col" id="block-menu-menu-cuda-zone-category-3 ">
+						<div class="padding-sub-footer">
+							<h5>
+								GET INVOLVED							</h5>
+							<div class="block-content">
+								<ul id="navbar-items" class="menu">
+									<li id="menu-item-5097" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5097"><a title="Engage with NVIDIA support and other developers" href="https://devtalk.nvidia.com/">Forums</a></li>
+<li id="menu-item-5098" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-5098"><a title="A technical blog written by Developers for Developers" href="https://devblogs.nvidia.com/parallelforall/">Parallel Forall Blog</a></li>
+<li id="menu-item-5099" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5099"><a href="https://developer.nvidia.com/cuda-registered-developer-program">Developer Program</a></li>
+<li id="menu-item-5100" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5100"><a href="https://developer.nvidia.com/contact">Contact Us</a></li>
+								</ul>
+							</div><!-- /.block-content -->
+						</div><!-- /.padding-sub-footer -->
+					</div><!-- /.block -->
+				</div><!-- /.col-xs-12 -->
+			</div><!-- /.row -->
+		</div><!-- /.container -->
+	</div><!-- /.footer-links -->
+	<div class="footer-boilerplate">
+		<div class="container">
+			<div class="boilerplate">
+				Copyright © 2017 NVIDIA Corporation				&nbsp; | &nbsp;
+				<a href="http://www.nvidia.com/object/legal_info.html">Legal Information</a>
+				&nbsp; | &nbsp;
+				<a href="http://www.nvidia.com/object/privacy_policy.html">Privacy Policy</a>
+			</div><!-- /.boilerplate -->
+		</div><!-- /.container -->
+	</div><!-- /.footer-boilerplate -->
+</footer>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/wjw6vwy.js.download"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'nvparallelforall';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1 && nodes[i].parentNode.tagName == 'A') {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+        <script>_satellite.pageBottom();</script>	<div style="display:none">
+	<div class="grofile-hash-map-a49199a2ebb3f075e6d011e3c363e300">
+	</div>
+	</div>
+<link rel="stylesheet" id="metaslider-flex-slider-css" href="./Faster Parallel Reductions on Kepler_files/flexslider.css" type="text/css" media="all" property="stylesheet">
+<link rel="stylesheet" id="metaslider-public-css" href="./Faster Parallel Reductions on Kepler_files/public.css" type="text/css" media="all" property="stylesheet">
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/devicepx-jetpack.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/gprofiles.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/wpgroho.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/comment-reply.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/ios-orientationchange-fix.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/twitter-timeline.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/effect.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/effect-blind.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"https:\/\/devblogs.nvidia.com\/parallelforall\/wp-content\/stb-themes\/stb-dark\/minus.png","imgShow":"https:\/\/devblogs.nvidia.com\/parallelforall\/wp-content\/stb-themes\/stb-dark\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/wstb.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/wp-embed.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/jquery.flexslider-min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/jQuery.easing.min.js.download"></script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/e-201742.js.download" async="" defer=""></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:5.4',blog:'58448338',post:'2551',tz:'-7',srv:'devblogs.nvidia.com'} ]);
+	_stq.push([ 'clickTrackerInit', '58448338', '2551' ]);
+</script>
+<script type="text/javascript" src="./Faster Parallel Reductions on Kepler_files/addthis_widget.js.download"></script><img src="./Faster Parallel Reductions on Kepler_files/g.gif" alt=":)" width="6" height="5" id="wpstats"><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; top: -9999px; z-index: 100000;"><iframe id="_atssh759" title="AddThis utility frame" src="./Faster Parallel Reductions on Kepler_files/sh.c7f897d92405181bbe1705e3.html" style="height: 1px; width: 1px; position: absolute; top: 0px; z-index: 100000; border: 0px; left: 0px;"></iframe></div><style id="service-icons-0"></style>
+<script type="text/javascript">
+  adroll_adv_id = "FIFVXFM7UBEUBB263WGLHT";
+  adroll_pix_id = "XRPEH5KVE5GI5GW4KWAAR7";
+  /* OPTIONAL: provide email to improve user identification */
+  /* adroll_email = "username@example.com"; */
+  (function () {
+    var _onload = function(){
+    if (document.readyState && !/loaded|complete/.test(document.readyState))
+      {setTimeout(_onload, 10);return}
+    if (!window._adroll_loaded){_adroll_loaded=true;setTimeout(_onload, 50);return}
+      var scr = document.createElement("script");
+      var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+      scr.setAttribute('async', 'true');
+      scr.type = "text/javascript";
+      scr.src = host + "/j/roundtrip.js";
+      ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+    };
+    if (window.addEventListener)
+      {window.addEventListener('load', _onload, false);}
+    else
+      {window.attachEvent('onload', _onload)}
+  }());
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"a63018bcb3","applicationID":"39867691","transactionName":"MgcDbURTD0dSVkcLXwtNIFpCWw5aHEZaDFcJBw==","queueTime":0,"applicationTime":384,"atts":"HkAAGwxJHEk=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+
+<iframe style="display: none;" src="./Faster Parallel Reductions on Kepler_files/saved_resource(5).html"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Faster Parallel Reductions on Kepler_files/saved_resource(6).html"></iframe></body></html>

@@ -1,0 +1,38 @@
+CUDA / OpenCL Code
+1. Basics
+  - vectorAdd: 	SDK(0)
+  - matrixMul: 	SDK(0), CUDA
+  - transpose: 	SDK(6), CUDA
+  - reduction: 	SDK(6), CUDA
+  - histogram: 	SDK(3), CUDA
+  - scan:	sDK(6), CUDA
+  - shfl_scan: 	SDK(6)
+
+2. Imediate
+  - convolution: 	SDK(3), -Seperable, -Texture, -FFT2D
+  - SpMV		CUDA, CLA(13), CLP
+  - MapReduce		CLA
+  - QR decomposition	CLA
+  - Sort[bitonic]:	SDK(6 (bitonic and odd-even merge sort), CLA, 
+  - Sort[mergeSort]:	SDK(6), CUDA
+  - Sort[Radix]:	SDK(6, thrust), CLA
+  - Sort[Quick]:	SDK(6)
+  - HybridSort:		Rodinia
+  - Graph[BFS]:		Rodinia
+  - Graph[Search]:	CUDA	
+  - Graph[ShortestPath] CLP	
+  - FFT			CLA[14]
+
+3. Advanced
+  - eigenvalues		SDK[6]
+  - SobelFilter		SDK[3], CLP
+  - OceanFFT		SDK[5], CLP
+
+4. CaseStudy
+  - SDK[4]: binomialOptions, BlackScholes, quasirandomGenerator
+  - SDK[5]: nbody, particles, smokeParticles
+  - SDK[6]: fastWalshTransform
+
+SDK: CUDA 9.0
+
+OpenACC/Thrust

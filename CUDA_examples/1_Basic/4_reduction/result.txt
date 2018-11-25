@@ -1,0 +1,24 @@
+<integer>
+Throughput = 13.6775 GB/s, Time = 0.00491 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 19.4202 GB/s, Time = 0.00346 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 26.6662 GB/s, Time = 0.00252 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 51.1068 GB/s, Time = 0.00131 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 61.4162 GB/s, Time = 0.00109 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 63.2112 GB/s, Time = 0.00106 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 88.6230 GB/s, Time = 0.00076 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+<float>
+Throughput = 14.4484 GB/s, Time = 0.00464 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 19.3802 GB/s, Time = 0.00346 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 26.7339 GB/s, Time = 0.00251 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 51.1852 GB/s, Time = 0.00131 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 61.2050 GB/s, Time = 0.00110 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 63.9638 GB/s, Time = 0.00105 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 89.7057 GB/s, Time = 0.00075 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+<double>
+Throughput = 23.6861 GB/s, Time = 0.00567 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 30.0555 GB/s, Time = 0.00447 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 50.1572 GB/s, Time = 0.00268 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 76.6293 GB/s, Time = 0.00175 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 84.0500 GB/s, Time = 0.00160 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 86.4026 GB/s, Time = 0.00155 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256
+Throughput = 91.3326 GB/s, Time = 0.00147 s, Size = 16777216 Elements, NumDevsUsed = 1, Workgroup = 256

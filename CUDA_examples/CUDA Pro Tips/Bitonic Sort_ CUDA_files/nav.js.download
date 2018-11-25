@@ -1,0 +1,58 @@
+navhdrs = ["Home","Platforms","Bitonic Sort","Linear Algebra","Education","Glossary"];
+navhrefs = ["index.html", "openMP.html","bitonic_overview.html","linalg.html","education.html","glossary.html"];
+
+subnavhdrs = [
+	      [],
+	      ["OpenMP", "MPI", "CUDA", "Others"],
+	      ["Overview","OpenMP","MPI","CUDA"],
+	      ["Packages","Gaussian Elim"],
+	      [""],
+	      [""]
+	      ];
+
+subnavhrefs = [
+	       [""],
+	       ["openMP.html","MPI_overview.html","cuda.html","ParallelConcurrentLanguages.html"],
+	       ["bitonic_overview.html","bitonic_openmp.html","mpi_bitonic.html","cuda_bitonic.html"],
+	       ["linalg.html","ge.html"],
+	       [""],
+	       [""]
+	      ];
+
+function writeNavbar(active) {
+    document.write('<table class="navbar">');
+    document.write('<tr>');
+    for (i=0;i < navhdrs.length;i++) {
+	if (i == active) {
+	    document.write('<td class="active">' + navhdrs[i] + '</td>');
+	} else {
+	    document.write('<td><a href="' + navhrefs[i] + '">' +
+		       navhdrs[i] + '</a></td>');
+	}
+    }
+    document.write('</tr>');
+    document.write('</table>  ');
+}
+
+function writeSubnavbar(navindex,active) {
+    document.write('<table class="subnavbar">');
+    document.write('<tr>');
+    var w=100/subnavhdrs[navindex].length;
+    for (i=0; i < subnavhdrs[navindex].length; i++) {
+	if (i == active) {
+	    document.write('<td class="active" width=' + w + '%>' + subnavhdrs[navindex][i] + '</td>');
+	} else {
+	document.write('<td width=' + w + '%><a class="sub" href="' +
+		       subnavhrefs[navindex][i] + 
+		       '">' + subnavhdrs[navindex][i] + '</a></td>');
+	}
+    }
+    document.write('</tr>');
+    document.write('</table>  ');
+    /*
+    document.write('<td><a class="sub" href="openMP.html">OpenMP</a></td>');
+    document.write('<td><a class="sub" href="MPI_overview.html">MPI</a></td>');
+    document.write('<td><a class="sub" href="cuda.html">CUDA</a></td>');
+    document.write('<td><a class="sub" href="https://docs.google.com/document/d/1YH1j7Z51vT86h_3nFDQbf52aYpdAMzWteyMy0jUqWgA/edit">Others</a></td>');
+    */
+}

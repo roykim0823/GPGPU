@@ -1,0 +1,230 @@
+
+<!-- saved from url=(0079)https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#code -->
+<html class="gr__cs_rutgers_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Bitonic Sort: CUDA</title>
+	<link rel="stylesheet" type="text/css" href="./Bitonic Sort_ CUDA_files/styles.css">
+	<script src="./Bitonic Sort_ CUDA_files/nav.js.download"></script>
+	<style type="text/css">
+		span {
+			font-family: 'Droid Sans Mono',Consolas,'Courier New';
+			font-size: 10pt;
+			color: #000000;
+		}
+		.sc0 {
+		}
+		.sc2 {
+			color: #008000;
+		}
+		.sc3 {
+			color: #008080;
+		}
+		.sc4 {
+			color: #FF8000;
+		}
+		.sc5 {
+			font-weight: bold;
+			color: #0000FF;
+		}
+		.sc6 {
+			color: #808080;
+		}
+		.sc9 {
+			color: #804000;
+		}
+		.sc10 {
+			font-weight: bold;
+			color: #000080;
+		}
+		.sc11 {
+		}
+		.sc16 {
+			color: #8000FF;
+		}
+		.sc17 {
+			font-weight: bold;
+			color: #008080;
+		}
+	</style>
+</head>
+
+<body data-gr-c-s-loaded="true">
+	<script type="text/javascript">
+		writeNavbar(2);
+		writeSubnavbar(2,3);
+	</script><table class="navbar"><tbody><tr><td><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/index.html">Home</a></td><td><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/openMP.html">Platforms</a></td><td class="active">Bitonic Sort</td><td><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/linalg.html">Linear Algebra</a></td><td><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/education.html">Education</a></td><td><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/glossary.html">Glossary</a></td></tr></tbody></table>  <table class="subnavbar"><tbody><tr><td width="25%"><a class="sub" href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/bitonic_overview.html">Overview</a></td><td width="25%"><a class="sub" href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/bitonic_openmp.html">OpenMP</a></td><td width="25%"><a class="sub" href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/mpi_bitonic.html">MPI</a></td><td class="active" width="25%">CUDA</td></tr></tbody></table>  
+
+	<h2>Bitonic Sort: CUDA</h2>	
+	<h2>Contents</h2>
+	<ul>
+		<li><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#code">Code</a></li>
+		<li><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#parallelization">Parallelization</a></li>
+		<li><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#comm_data_sharing">Communication and Data Sharing</a></li>
+		<li><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#comm_vs_comp">Communication versus Computation</a></li>
+		<li><a href="https://www.cs.rutgers.edu/~venugopa/parallel_summer2012/cuda_bitonic.html#external_params">External Parameters</a></li>
+	</ul><hr>
+	
+	<h2><a name="code">Code</a></h2>
+	<h3>cuda_bitonic.c</h3>
+	<div style="height:400px;overflow:scroll;background:#FFFFFF;">
+		<div style="float: left; white-space: pre; line-height: 1; background: #FFFFFF; "><span class="sc9">#include &lt;stdio.h&gt;
+</span><span class="sc0">
+</span><span class="sc2">// The original array, stored in global memory. The final result will
+// eventually overwrite the original and be stored here.
+</span><span class="sc11">__device__</span><span class="sc0"> </span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">array</span><span class="sc10">;</span><span class="sc0">
+ 
+</span><span class="sc11">__global__</span><span class="sc0"> </span><span class="sc11">__forceinline__</span><span class="sc0"> </span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicSort</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">b</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc11">__global__</span><span class="sc0"> </span><span class="sc11">__forceinline__</span><span class="sc0"> </span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicBuild</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">b</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicBuildRunner</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicSortRunner</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">);</span><span class="sc0">
+ 
+</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">main</span><span class="sc10">(</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">argc</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc0"> </span><span class="sc10">**</span><span class="sc11">argv</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+	</span><span class="sc2">// Input in array...
+</span><span class="sc0">    </span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">array</span><span class="sc10">;</span><span class="sc0">
+	
+	</span><span class="sc2">// BEGIN
+</span><span class="sc0">    </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">n</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">,</span><span class="sc11">s</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc11">FILE</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc11">f</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">fopen</span><span class="sc10">(</span><span class="sc11">argv</span><span class="sc10">[</span><span class="sc4">1</span><span class="sc10">],</span><span class="sc6">"r"</span><span class="sc10">);</span><span class="sc0">
+
+	</span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">f</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc5">NULL</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc11">fprintf</span><span class="sc10">(</span><span class="sc11">stderr</span><span class="sc10">,</span><span class="sc6">"File not found.\n"</span><span class="sc10">);</span><span class="sc0">
+		</span><span class="sc11">exit</span><span class="sc10">(</span><span class="sc4">1</span><span class="sc10">);</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+	
+	</span><span class="sc2">// Size of input
+</span><span class="sc0">    </span><span class="sc11">fscanf</span><span class="sc10">(</span><span class="sc11">f</span><span class="sc10">,</span><span class="sc6">"%d"</span><span class="sc10">,&amp;</span><span class="sc11">n</span><span class="sc10">);</span><span class="sc0">
+	
+	</span><span class="sc11">array</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*)</span><span class="sc0"> </span><span class="sc11">malloc</span><span class="sc10">(</span><span class="sc11">n</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc5">sizeof</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">));</span><span class="sc0">
+	</span><span class="sc5">for</span><span class="sc10">(</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">&lt;</span><span class="sc0"> </span><span class="sc11">n</span><span class="sc10">;</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">++)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc11">fscanf</span><span class="sc10">(</span><span class="sc11">f</span><span class="sc10">,</span><span class="sc6">"%d"</span><span class="sc10">,(</span><span class="sc11">arr</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">));</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+	</span><span class="sc2">// END
+</span><span class="sc0">    
+	</span><span class="sc2">// Size of array;
+</span><span class="sc0">    </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">;</span><span class="sc0">
+	
+	</span><span class="sc2">// Transfer flow of control to device
+</span><span class="sc0">    </span><span class="sc11">bitonicBuildRunner</span><span class="sc10">(</span><span class="sc11">array</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">);</span><span class="sc0">
+	</span><span class="sc11">bitonicSortRunner</span><span class="sc10">(</span><span class="sc11">array</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">);</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicSortRunner</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+	</span><span class="sc2">// Copy over memory
+</span><span class="sc0">    </span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">array</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">mem</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">sizeof</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc11">cudaMalloc</span><span class="sc10">(</span><span class="sc11">array</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mem</span><span class="sc10">);</span><span class="sc0">
+	</span><span class="sc11">cudaMemcpy</span><span class="sc10">(</span><span class="sc11">array</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mem</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">cudaMemcpyHostToDevice</span><span class="sc10">);</span><span class="sc0">
+	
+	</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc5">while</span><span class="sc10">(</span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">!=</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc2">// Execution config
+</span><span class="sc0">        </span><span class="sc11">dim3</span><span class="sc0"> </span><span class="sc11">numBlocks</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc10">;</span><span class="sc0">
+		</span><span class="sc11">dim3</span><span class="sc0"> </span><span class="sc11">threadsPerBlock</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">;</span><span class="sc0">
+		
+		</span><span class="sc11">bitonicSort</span><span class="sc10">&lt;&lt;&lt;</span><span class="sc11">numBlocks</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">threadsPerBlock</span><span class="sc10">&gt;&gt;&gt;(</span><span class="sc11">array</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc10">);</span><span class="sc0">
+		</span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">*=</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicBuildRunner</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+	</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc5">while</span><span class="sc10">(</span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">!=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">-</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc11">blocks</span><span class="sc10">);</span><span class="sc0">
+		</span><span class="sc5">while</span><span class="sc10">(</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">!=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+			</span><span class="sc11">dim3</span><span class="sc0"> </span><span class="sc11">numBlocks</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">threadsPerBlock</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">;</span><span class="sc0">
+			</span><span class="sc5">for</span><span class="sc10">(</span><span class="sc11">j</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0"> </span><span class="sc11">j</span><span class="sc0"> </span><span class="sc10">&lt;</span><span class="sc0"> </span><span class="sc11">size</span><span class="sc10">;</span><span class="sc0"> </span><span class="sc11">j</span><span class="sc0"> </span><span class="sc10">+=</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">++)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+				</span><span class="sc11">bitonicBuild</span><span class="sc10">&lt;&lt;&lt;</span><span class="sc11">numBlocks</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">threadsPerBlock</span><span class="sc10">&gt;&gt;&gt;(</span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">i</span><span class="sc10">);</span><span class="sc0">
+			</span><span class="sc10">}</span><span class="sc0">
+			</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">/=</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">;</span><span class="sc0">
+		</span><span class="sc10">}</span><span class="sc0">
+		</span><span class="sc11">blocks</span><span class="sc0"> </span><span class="sc10">/=</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc3">/**
+ * Applies the bitonic sorting algorithm to each thread. It swaps two
+ * elements in the two lists if they are out of place.
+ */</span><span class="sc0">
+</span><span class="sc11">__global__</span><span class="sc0"> </span><span class="sc11">__forceinline__</span><span class="sc0"> </span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicSort</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+	</span><span class="sc2">// First we need to figure out what index each thread will access
+</span><span class="sc0">    </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">threadIdx</span><span class="sc10">.</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">blockIdx</span><span class="sc10">.</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc11">atomicMin</span><span class="sc10">(&amp;</span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc10">],</span><span class="sc0"> 
+		</span><span class="sc11">atomicMax</span><span class="sc10">(&amp;</span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc10">],</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">i</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc10">]));</span><span class="sc0">
+	</span><span class="sc11">__syncthreads</span><span class="sc10">();</span><span class="sc0">
+</span><span class="sc10">}</span><span class="sc0">
+
+</span><span class="sc3">/**
+ * Combines two bitonic sequences together to create a new bitonic sequence.
+ * </span><span class="sc17">@param</span><span class="sc3"> a Pointer to the start of the bitonic sequence.
+ * </span><span class="sc17">@param</span><span class="sc3"> blockSize The size of each sub-array partition.
+ * </span><span class="sc17">@param</span><span class="sc3"> t Determines when to switch between ascending and descending.
+ */</span><span class="sc0">
+</span><span class="sc11">__global__</span><span class="sc0"> </span><span class="sc11">__forceinline__</span><span class="sc0"> </span><span class="sc16">void</span><span class="sc0"> </span><span class="sc11">bitonicBuild</span><span class="sc10">(</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">t</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+	</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">threadIdx</span><span class="sc10">.</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">blockIdx</span><span class="sc10">.</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">blockSize</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">asc</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">;</span><span class="sc0">
+	</span><span class="sc16">float</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">b</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">blockSize</span><span class="sc0"> </span><span class="sc10">/</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc10">);</span><span class="sc0">
+	</span><span class="sc5">while</span><span class="sc10">(</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">&gt;</span><span class="sc0"> </span><span class="sc11">index</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">+=</span><span class="sc0"> </span><span class="sc11">t</span><span class="sc10">;</span><span class="sc0">
+		</span><span class="sc11">asc</span><span class="sc10">++;</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+	
+	</span><span class="sc5">if</span><span class="sc10">(</span><span class="sc11">asc</span><span class="sc0"> </span><span class="sc10">%</span><span class="sc0"> </span><span class="sc4">2</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc4">1</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc11">atomicMin</span><span class="sc10">(&amp;</span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">index</span><span class="sc10">],</span><span class="sc0"> </span><span class="sc11">atomicMax</span><span class="sc10">(&amp;</span><span class="sc11">b</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">index</span><span class="sc10">]));</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+	</span><span class="sc5">else</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+		</span><span class="sc11">atomicMax</span><span class="sc10">(&amp;</span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">index</span><span class="sc10">],</span><span class="sc0"> </span><span class="sc11">atomicMin</span><span class="sc10">(&amp;</span><span class="sc11">b</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">a</span><span class="sc10">[</span><span class="sc11">index</span><span class="sc10">]));</span><span class="sc0">
+	</span><span class="sc10">}</span><span class="sc0">
+</span><span class="sc10">}</span>
+		</div>
+	</div>
+
+	<h2><a name="parallelization">Parallelization</a></h2>
+	<p> Although recursive implementations seem tempting, the added overhead
+		from method calls would eliminate most of the speedup gained from
+		paralleization. Instead, simpler loops are used to iterate through the
+		algorithm. The collection that holds the sequence to sort is stored
+		on the host, where it can persist throughout the entire application.
+		However, when the sequence is actually being operated on, data is
+		transferred to the device, where caching and other optimizations make
+		data accesses there significantly faster than global memory on the
+		host. </p>
+	<p> In the sorting network, each comparator is implemented as an individual
+		thread. For both the bitonic build and split procedures, the sequence
+		is partitioned into blocks; then comparators are used to examine and
+		swap elements that are out of order. Threads within the same block can
+		be synchronized and communicate with each other as the process occurs.
+		On each step of the algorithm, there exists one block for every two
+		sub-lists being processed. After the bitonic build, the sequence must
+		be sent back to the host and re-copied onto the device, as data on the
+		device does not persist	between function calls. </p>
+		
+	<h2><a name="comm_data_sharing">Communication and Data Sharing</a></h2>
+	<p> Because the comparisons are almost embarrassingly parallel, there is
+		very little time wasted on communication. There is a minimal amount of
+		time spent waiting for threads in the same block waiting for the others
+		to finish (a barrier). There is also another barrier for one block
+		waiting for adjacent sublists to complete their work before proceeding
+		onto the next iteration. However, the most significant delay is the
+		latency in transferring data to and from the host, which takes much
+		longer compared to the quick memory accesses on the device. As hard
+		drives become faster and more efficient, this latency can be reduced. </p>
+		
+	<h2><a name="comm_vs_comp">Communication versus Computation</a></h2>
+	<p> Thanks to parallelism, each iteration of comparisons is done
+		simultaneously, which greatly reduces the total number of comparisons
+		done. Tradeoffs in using a CUDA implementation of this sort include
+		the aforementioned device memory latency and limited data on the device,
+		which may hinder the algorithm or require extra partitioning of the
+		sequence. Also, given sufficiently fast processors on the host, the
+		algorithm may run nearly as quickly sequentially as in parallel due to
+		the unavoidable memory delays. </p>
+	
+	<h2><a name="external_params">External Parameters</a></h2>
+	<p> External factors that affect the speed of the sort include: </p>
+	<ul>
+		<li><em>Communication latency</em>, as described above.</li>
+		<li><em>Device memory.</em> When shared memory is limited, we can use
+		tiling only on moderately sized sublists. When the sequence to sort is
+		extremely large, data must be kept in global memory and it may not be
+		practical to run the sort. </li>
+
+
+</ul></body></html>
