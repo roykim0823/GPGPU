@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_sem_bar.dir/src/pth_sem_bar.c.o  -o pth_sem_bar 

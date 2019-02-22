@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_do_nothing.dir/src/pth_do_nothing.c.o  -o pth_do_nothing 

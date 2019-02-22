@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_pi.dir/src/pth_pi.c.o  -o pth_pi 

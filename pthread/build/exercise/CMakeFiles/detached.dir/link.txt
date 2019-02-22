@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread -lm   CMakeFiles/detached.dir/detached.c.o  -o detached -lm 

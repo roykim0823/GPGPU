@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyunjin/codes_examples/ipp-source-use/ch3_MPI/src/vector_add.c
+stdio.h
+-
+stdlib.h
+-
+

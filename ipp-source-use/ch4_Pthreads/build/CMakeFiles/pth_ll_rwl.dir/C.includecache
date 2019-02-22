@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/my_rand.h
+
+../include/timer.h
+sys/time.h
+-
+
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/my_rand.c
+stdio.h
+-
+stdlib.h
+-
+my_rand.h
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/my_rand.h
+
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/pth_ll_rwl.c
+stdio.h
+-
+stdlib.h
+-
+pthread.h
+-
+my_rand.h
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/my_rand.h
+timer.h
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/timer.h
+

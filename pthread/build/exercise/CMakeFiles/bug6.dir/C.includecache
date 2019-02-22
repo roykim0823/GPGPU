@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyunjin/codes_examples/pthread/exercise/bug6.c
+pthread.h
+-
+stdio.h
+-
+stdlib.h
+-
+

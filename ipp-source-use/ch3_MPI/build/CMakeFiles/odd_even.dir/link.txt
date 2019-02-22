@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/odd_even.dir/src/odd_even.c.o  -o odd_even 

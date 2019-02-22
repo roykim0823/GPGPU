@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/pth_msg.c
+stdio.h
+-
+stdlib.h
+-
+pthread.h
+-
+

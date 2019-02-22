@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_vector.dir/src/mpi_vector.c.o  -o mpi_vector /usr/local/lib/libmpi.so -Wl,-rpath,/usr/local/lib 

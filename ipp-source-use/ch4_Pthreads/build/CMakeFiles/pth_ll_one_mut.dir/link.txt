@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_ll_one_mut.dir/src/pth_ll_one_mut.c.o CMakeFiles/pth_ll_one_mut.dir/src/my_rand.c.o  -o pth_ll_one_mut 

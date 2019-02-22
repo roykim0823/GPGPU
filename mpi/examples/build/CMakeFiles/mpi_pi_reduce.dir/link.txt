@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_pi_reduce.dir/src/mpi_pi_reduce.c.o  -o mpi_pi_reduce /usr/local/lib/libmpi.so -Wl,-rpath,/usr/local/lib 

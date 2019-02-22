@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_cond_bar.dir/src/pth_cond_bar.c.o  -o pth_cond_bar 

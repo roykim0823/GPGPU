@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMYRAND.a  CMakeFiles/MYRAND.dir/src/my_rand.c.o
+/usr/bin/ranlib libMYRAND.a

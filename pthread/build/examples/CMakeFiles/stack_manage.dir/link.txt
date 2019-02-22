@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread   CMakeFiles/stack_manage.dir/stack_manage.c.o  -o stack_manage 

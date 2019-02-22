@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_contig.dir/src/mpi_contig.c.o  -o mpi_contig /usr/local/lib/libmpi.so -Wl,-rpath,/usr/local/lib 

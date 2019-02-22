@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread   CMakeFiles/hello_ex3.dir/hello_ex3.c.o  -o hello_ex3 

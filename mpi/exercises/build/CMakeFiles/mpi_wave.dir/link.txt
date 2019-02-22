@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_wave.dir/src/mpi_wave.c.o CMakeFiles/mpi_wave.dir/src/draw_wave.c.o  -o mpi_wave -lm /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so /usr/lib/openmpi/lib/libmpi_cxx.so /usr/lib/openmpi/lib/libmpi.so -Wl,-rpath,/usr/lib/openmpi/lib 

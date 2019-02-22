@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyunjin/codes_examples/mpi/exercises/src/draw_wave.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+X11/Xlib.h
+-
+X11/Xutil.h
+-
+
+/home/hyunjin/codes_examples/mpi/exercises/src/ser_wave.c
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+time.h
+-
+

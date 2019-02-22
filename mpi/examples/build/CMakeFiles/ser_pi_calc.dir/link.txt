@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/ser_pi_calc.dir/src/ser_pi_calc.c.o  -o ser_pi_calc 

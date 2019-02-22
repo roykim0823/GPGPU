@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_msg.dir/src/pth_msg.c.o  -o pth_msg 

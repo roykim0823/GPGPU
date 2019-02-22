@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/vector_add.dir/src/vector_add.c.o  -o vector_add 

@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_prime.dir/src/mpi_prime.c.o  -o mpi_prime -lm /usr/lib/openmpi/lib/libmpi_cxx.so /usr/lib/openmpi/lib/libmpi.so -Wl,-rpath,/usr/lib/openmpi/lib 

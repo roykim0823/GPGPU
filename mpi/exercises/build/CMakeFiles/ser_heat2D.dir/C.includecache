@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyunjin/codes_examples/mpi/exercises/src/draw_heat.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+X11/Xlib.h
+-
+X11/Xutil.h
+-
+
+/home/hyunjin/codes_examples/mpi/exercises/src/ser_heat2D.c
+stdio.h
+-
+stdlib.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/ser_wave.dir/src/ser_wave.c.o CMakeFiles/ser_wave.dir/src/draw_wave.c.o  -o ser_wave -lm /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so 

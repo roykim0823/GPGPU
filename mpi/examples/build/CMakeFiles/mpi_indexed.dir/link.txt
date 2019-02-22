@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_indexed.dir/src/mpi_indexed.c.o  -o mpi_indexed /usr/local/lib/libmpi.so -Wl,-rpath,/usr/local/lib 

@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/ser_mm.dir/src/ser_mm.c.o  -o ser_mm 

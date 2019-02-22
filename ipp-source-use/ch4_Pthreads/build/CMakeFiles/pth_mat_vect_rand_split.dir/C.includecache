@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/timer.h
+sys/time.h
+-
+
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/pth_mat_vect_rand_split.c
+stdio.h
+-
+stdlib.h
+-
+pthread.h
+-
+timer.h
+/home/hyunjin/codes_examples/ipp-source-use/ch4_Pthreads/src/timer.h
+

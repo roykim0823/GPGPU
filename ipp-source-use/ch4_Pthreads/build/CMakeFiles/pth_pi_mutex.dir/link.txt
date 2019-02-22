@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_pi_mutex.dir/src/pth_pi_mutex.c.o  -o pth_pi_mutex 

@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread -lm   CMakeFiles/bug5fix.dir/bug5fix.c.o  -o bug5fix -lm 

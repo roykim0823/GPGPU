@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g -O2   CMakeFiles/pth_pi_busy1.dir/src/pth_pi_busy1.c.o  -o pth_pi_busy1 

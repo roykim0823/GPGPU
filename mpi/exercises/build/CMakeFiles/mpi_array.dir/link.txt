@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_array.dir/src/mpi_array.c.o  -o mpi_array /usr/lib/openmpi/lib/libmpi_cxx.so /usr/lib/openmpi/lib/libmpi.so -Wl,-rpath,/usr/lib/openmpi/lib 

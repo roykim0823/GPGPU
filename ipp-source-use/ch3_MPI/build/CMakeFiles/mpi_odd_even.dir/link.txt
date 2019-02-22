@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_odd_even.dir/src/mpi_odd_even.c.o  -o mpi_odd_even /usr/lib/openmpi/lib/libmpi_cxx.so /usr/lib/openmpi/lib/libmpi.so -Wl,-rpath,/usr/lib/openmpi/lib 

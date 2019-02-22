@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread   CMakeFiles/condvar.dir/condvar.c.o  -o condvar 

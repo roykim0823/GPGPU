@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/ser_prime.dir/src/ser_prime.c.o  -o ser_prime -lm 

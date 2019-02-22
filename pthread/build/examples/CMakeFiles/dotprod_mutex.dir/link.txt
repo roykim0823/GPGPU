@@ -1,0 +1,1 @@
+/usr/bin/cc  -g -Wall -Werror -pthread   CMakeFiles/dotprod_mutex.dir/dotprod_mutex.c.o  -o dotprod_mutex 

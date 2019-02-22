@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_mat_vect.dir/src/pth_mat_vect.c.o  -o pth_mat_vect 

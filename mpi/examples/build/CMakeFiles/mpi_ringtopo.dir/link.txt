@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_ringtopo.dir/src/mpi_ringtopo.c.o  -o mpi_ringtopo /usr/local/lib/libmpi.so -Wl,-rpath,/usr/local/lib 

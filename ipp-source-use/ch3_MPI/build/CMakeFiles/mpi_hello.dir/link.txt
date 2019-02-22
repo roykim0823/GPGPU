@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/mpi_hello.dir/src/mpi_hello.c.o  -o mpi_hello /usr/lib/openmpi/lib/libmpi_cxx.so /usr/lib/openmpi/lib/libmpi.so -Wl,-rpath,/usr/lib/openmpi/lib 

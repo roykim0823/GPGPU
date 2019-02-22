@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Werror -pthread -g   CMakeFiles/pth_msg_sem_mac.dir/src/pth_msg_sem_mac.c.o  -o pth_msg_sem_mac 
